@@ -1,0 +1,15 @@
+{
+    "name": "xenio/xenio-cookies",
+    "type": "wordpress-plugin",
+    "autoload": {
+        "psr-4": {
+            "XenioCookies\\": "includes/"
+            }
+    },
+    "authors": [
+        {
+            "name": "Slava"
+        }
+    ],
+    "require": {}
+}

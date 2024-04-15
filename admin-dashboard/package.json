@@ -1,0 +1,36 @@
+{
+  "name": "vue-project",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "run-p type-check \"build-only {@}\" --",
+    "preview": "vite preview",
+    "build-only": "vite build --watch",
+    "type-check": "vue-tsc --noEmit -p tsconfig.app.json --composite false"
+  },
+  "dependencies": {
+    "@vueuse/core": "^10.7.0",
+    "@vueuse/integrations": "^10.7.0",
+    "bootstrap": "^5.3.3",
+    "pinia": "^2.1.7",
+    "quill": "^2.0.0-rc.4",
+    "tom-select": "^2.3.1",
+    "vue": "^3.3.4",
+    "vue-router": "^4.2.5"
+  },
+  "devDependencies": {
+    "@tsconfig/node18": "^18.2.2",
+    "@types/node": "^18.18.5",
+    "@vitejs/plugin-vue": "^4.4.0",
+    "@vue/tsconfig": "^0.4.0",
+    "@wordpress/scripts": "^26.18.0",
+    "autoprefixer": "^10.4.16",
+    "npm-run-all2": "^6.1.1",
+    "postcss": "^8.4.31",
+    "tailwindcss": "^3.3.5",
+    "typescript": "~5.2.0",
+    "vite": "^4.4.11",
+    "vue-tsc": "^1.8.19"
+  }
+}

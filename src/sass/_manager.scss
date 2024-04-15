@@ -1,0 +1,274 @@
+.xcc-manager {
+    font-size: 16px;
+    &__desc {
+        padding: 0 1em;
+    }
+    &__headline {
+        margin-top: 0;
+        margin-bottom: 0.3em;
+        font-size: 1.5em;
+        font-weight: bold;
+    }
+    button {
+        cursor: pointer;
+    }
+}
+
+.xcc-manager-list {
+
+}
+
+.xcc-manager-category {
+    transition: 0.2s;
+    outline: 2px solid rgba(0, 0, 0, 0);
+    &__body {
+        .xcc-manager-category:not(.active) & {
+            display: none;
+        }
+        padding: 0.5em 1em;
+    }
+    &.active {
+        outline: 2px solid rgba(0, 0, 0, 0.1);
+        border-radius: 0.2em;
+        margin: 0.5em 0;
+        &:first-child {
+            margin-top: 0;
+        }
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+    &__vendors {
+        margin-top: 0.5em;
+    }
+}
+
+.xcc-manager-category-header {
+    display: flex;
+    justify-content: space-between;
+    transition: 0.2s;
+    padding: 0.5em 1.2em;
+    border-radius: 0.2em;
+    align-items: center;
+    position: relative;
+    .xcc-manager-category.active &,
+    &:hover {
+        background: rgba(0, 0, 0, 0.1);
+    }
+
+    &__headline {
+        font-size: 1.3em;
+        line-height: normal;
+    }
+    &__metas {
+        font-size: 0.9em;
+        line-height: normal;
+    }
+    &__control {
+        display: flex;
+        align-items: center;
+    }
+    &__arrow {
+        position: relative;
+        width: 1em;
+        height: 1em;
+        display: flex;
+        margin-left: 1em;
+        pointer-events: none;
+
+        &:after {
+            content: '';
+            position: absolute;
+            background-image: url(../assets/icons/arrow-black.svg);
+            background-position: center;
+            background-size: contain;
+            width: 100%;
+            height: 100%;
+            transform: rotateX(180deg);
+            transition: 0.4s;
+            .xcc-manager-category.active & {
+                transform: rotateX(0deg);
+            }
+        }
+    }
+    &__toggle {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        padding: 0;
+        background: none;
+        border: none;
+    }
+}
+
+.xcc-manager-category-switch {
+    cursor: pointer;
+    &__wrapper {
+        display: flex;
+        align-items: center;
+        background: rgba(0, 0, 0, 0.1);
+        border-radius: 200em;
+        width: 2.8em;
+        height: 1.6em;
+        position: relative;
+        padding: 0;
+        border: none;
+        transition: 0.4s;
+    }
+    input {
+        appearance: none;
+        -webkit-appearance: none;
+        position: absolute;
+        width: 0.1em;
+    }
+    input:focus-visible + &__wrapper {
+        outline: -webkit-focus-ring-color auto 1px;
+    }
+    &__dot {
+        position: absolute;
+        width: 1.2em;
+        height: 1.2em;
+        left: 0.2em;
+        background: rgba(0, 0, 0, 0.6);
+        border-radius: 200em;
+        transition: 0.3s;
+    }
+    input:checked + &__wrapper {
+        background: var(--xcc-color-alpha);
+    }
+    input:checked + &__wrapper &__dot {
+        transform: translateX(1.2em);
+        background: rgba(255, 255, 255, 1);
+    }
+}
+
+.xcc-manager-footer {
+    position: sticky;
+    padding: 1em 0;
+    margin-bottom: -1em;
+    bottom: 0;
+    width: 100%;
+    &__bg {
+        top: 0;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        background-image: linear-gradient(
+                        0deg,
+                        rgba(255, 255, 255, 1) 0%,
+                        rgba(255, 255, 255, 0.3) 50%,
+                        rgba(255, 255, 255, 0.15) 65%,
+                        rgba(255, 255, 255, 0.075) 75.5%,
+                        rgba(255, 255, 255, 0.037) 82.85%,
+                        rgba(255, 255, 255, 0.019) 88%,
+                        rgba(255, 255, 255, 0) 100%
+        );
+    }
+    &__buttons {
+        position: relative;
+        display: flex;
+        gap: 0.8em;
+        @media (max-width: 800px) {
+            flex-direction: column;
+        }
+    }
+    &__button {
+        flex-grow: 1;
+        flex-basis: 100%;
+        border: 2px solid var(--xcc-color-alpha);
+        background: var(--xcc-color-omega);
+        color: var(--xcc-color-alpha);
+        border-radius: 0.3em;
+        font-weight: bold;
+        padding: 0.2em 1em;
+        display: block;
+        &--primary {
+            background: var(--xcc-color-alpha);
+            color: var(--xcc-color-omega);
+        }
+    }
+}
+
+.xcc-manager-vendor {
+    position: relative;
+    padding: 0.3em 1em;
+    margin: 0 -1em;
+    transition: 0.2s;
+    &:hover {
+        background: rgba(0, 0, 0, 0.05);
+    }
+    &__header {
+        display: flex;
+        justify-content: space-between;
+    }
+    &__heading {
+        color: var(--xcc-color-alpha);
+        font-weight: bold;
+    }
+    &__button {
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        padding: 0;
+        border: none;
+        background: none;
+    }
+}
+
+.xcc-vendor-links {
+    &__link {
+        position: relative;
+        display: inline-flex;
+        padding: 0.05em 0.5em;
+        color: var(--xcc-color-alpha);
+        align-items: center;
+        font-weight: bold;
+        &:before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 0.2em;
+            left: 0;
+            background: var(--xcc-color-alpha);
+            opacity: 0.12;
+        }
+        &__link-label {
+            position: relative;
+        }
+        svg {
+            width: 1em;
+            height: 1em;
+            margin-right: 0.3em;
+            stroke: var(--xcc-color-alpha);
+        }
+    }
+}
+
+.xcc-manager-cookies {
+    margin-top: 0.5em;
+    &__item,
+    &__header {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+    }
+
+    &__header {
+        font-weight: bold;
+    }
+}
+.xcc-manager-cookie {
+    margin: 0 -0.6em;
+    padding: 0.3em 0.6em;
+    border-radius: 0.3em;
+    transition: 0.2s;
+    &:hover {
+        background: rgba(0, 0, 0, 0.07);
+    }
+    &__heading {
+    }
+}

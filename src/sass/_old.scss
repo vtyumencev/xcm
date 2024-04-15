@@ -1,0 +1,196 @@
+body.xcc--blocking blockquote.instagram-media,
+body.xcc--blocking blockquote.twitter-tweet
+{
+    display: none;
+}
+
+body:not(.xcc--blocking) .embed-placeholder-content__title,
+body:not(.xcc--blocking) .embed-placeholder-content__main,
+body:not(.xcc--blocking) .embed-placeholder-content__warning
+{
+
+}
+
+.xcc-found-blockquote {
+    display: none;
+}
+
+.embed-placeholder .embed-placeholder__wrapper {
+    position: relative;
+    height: 100%;
+    overflow: auto;
+    background: #EEE;
+}
+.embed-placeholder.aspect-ratio-16-9 .embed-placeholder__wrapper {
+    /*padding-bottom: 56.25%;*/
+}
+.embed-placeholder.aspect-ratio-default .embed-placeholder__wrapper {
+    /*padding-bottom: 100%;*/
+}
+.embed-placeholder--absolute {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+.embed-placeholder__inner {
+    /*position: absolute;*/
+    /*width: 100%;*/
+    /**/
+    /*top: 0;*/
+    /*left: 0;*/
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.embed-placeholder-content {
+    max-width: 500px;
+    margin: 50px 20px;
+}
+
+.embed-placeholder-content__main {
+    display: flex;
+}
+.embed-placeholder-content__main-text :first-child {
+    margin-top: 0;
+}
+.embed-placeholder-content__main-picture {
+    width: 50px;
+    margin-left: 20px;
+    flex-shrink: 0;
+}
+.embed-placeholder-content__main-picture-inner {
+    position: relative;
+    padding-bottom: 100%;
+}
+.embed-placeholder-content__main-icon {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #FFF;
+    border-radius: 5px;
+}
+.embed-placeholder-content__main-icon .dashicons {
+    font-size: 1.6em;
+    width: 1em;
+    height: 1em;
+}
+
+.embed-placeholder-content__title {
+    font-weight: 600;
+    margin-bottom: 16px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid rgba(0 0 0 / 20%);
+}
+
+.embed-placeholder-content__warning {
+    font-size: 0.8em;
+    color: rgba(0 0 0 / 0.8);
+}
+
+.embed-placeholder-content__switch {
+
+}
+
+.embed-placeholder-switch {
+    display: flex;
+    width: 100%;
+    border: none;
+    align-items: center;
+    background: rgba(191, 217, 178, 0.62);
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: #5a983b;
+    cursor: pointer;
+    font-weight: bold;
+}
+.embed-placeholder-switch__icon {
+    background-image: url(../assets/icons/switch.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+/**
+
+ */
+
+body.has-active-xcc-modal {
+    overflow: hidden;
+}
+
+.xcc-modal-wrapper {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 100;
+}
+body.admin-bar .xcc-modal-wrapper {
+    top: var(--wp-admin--admin-bar--height);
+}
+.xcc-modal-wrapper.shown {
+    display: block;
+}
+.xcc-modal-wrapper__inner {
+    position: relative;
+    overflow: auto;
+    height: 100%;
+    display: flex;
+    background: rgba(0, 0, 0, 0);
+    transition: 0.3s;
+}
+.xcc-modal-wrapper.visible .xcc-modal-wrapper__inner {
+    background: rgba(0, 0, 0, 0.5);
+}
+.xcc-modal {
+    position: relative;
+    margin: auto;
+    opacity: 0;
+    transform: scale(0.98) rotateX(-10deg);
+    transition: 0.4s;
+    width: 100%;
+    max-width: 700px;
+}
+.xcc-modal--lg {
+    max-width: 1000px;
+}
+.xcc-modal--sm {
+    max-width: 600px;
+}
+.xcc-modal__container {
+    margin: 3em 1em;
+}
+.xcc-modal__body {
+    padding: 0;
+    background: #fff;
+    box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.2);
+}
+.xcc-modal__content {
+    padding: 1em;
+}
+.xcc-modal-wrapper.visible .xcc-modal {
+    opacity: 1;
+    transform: translateY(0);
+}
+.xcc-modal__header {
+    display: flex;
+    justify-content: end;
+    margin: 0 1em 0 1em;
+}
+.xcc-modal__buttons {
+    display: flex;
+    justify-content: end;
+    margin: 1em 1em 0 1em;
+}
