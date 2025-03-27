@@ -6,6 +6,7 @@ import apiFetch from '@wordpress/api-fetch';
 import {computed, onMounted, ref, toRef, unref} from "vue";
 import {createLocaleMiddleware} from "@/helpers/middlewares/createLocaleMiddleware";
 import LanguageSelector from "@/components/LanguageSelector.vue";
+import LoadingSkeleton from "@/components/LoadingSkeleton.vue";
 
 interface LanguageSettings {
     userLocale: string,
@@ -18,8 +19,8 @@ const route = useRoute();
 const isReady = ref(false);
 
 const languages = ref<LanguageSettings>({
-    userLocale: 'en',
-    current: 'en',
+    userLocale: 'en_US',
+    current: 'en_US',
     list: []
 });
 
@@ -63,7 +64,7 @@ const breadcrumbs = computed(() => {
                     <CustomRouterLink :to="{ name: 'settings' }">Settings</CustomRouterLink>
                 </div>
             </div>
-            <Transition>
+            <Transition name="lang-selector">
                 <div v-if="languages.list.length > 0 && route.name !== 'settings'">
                     <label class="flex items-center">
                         Edit content in:
@@ -73,27 +74,30 @@ const breadcrumbs = computed(() => {
             </Transition>
         </header>
         <div v-if="isReady" class="mt-5">
-            <div class="flex space-x-2 mb-2">
-                <template v-for="(route, key) of breadcrumbs">
-                    <RouterLink :to="{ name: route.name }">
-                        {{ unref(route.meta.bc) }}
-                    </RouterLink>
-                    <div v-if="key !== breadcrumbs.length - 1" class="">-</div>
+            <div class="flex space-x-2 mb-2 items-center">
+                <template v-if="breadcrumbs.length > 1">
+                    <template v-for="(route, key) of breadcrumbs">
+                        <RouterLink class="text-gray-600" :to="{ name: route.name }">
+                            {{ unref(route.meta.bc) }}
+                        </RouterLink>
+                        <div v-if="key !== breadcrumbs.length - 1" class="text-xl leading-none">→</div>
+                    </template>
                 </template>
             </div>
             <RouterView :key="languages.current" />
         </div>
+        <LoadingSkeleton v-else />
     </div>
 </template>
 
-<style scoped>
-.v-enter-active,
-.v-leave-active {
+<style>
+.lang-selector-enter-active,
+.lang-selector-leave-active {
     transition: all 0.2s ease;
 }
 
-.v-enter-from,
-.v-leave-to {
+.lang-selector-enter-from,
+.lang-selector-leave-to {
     opacity: 0;
     transform: translateY(3px);
 }

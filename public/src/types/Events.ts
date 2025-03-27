@@ -1,3 +1,3 @@
 export default interface Events {
-    contestUpdated: () => void,
+    consentUpdated: () => void,
 }

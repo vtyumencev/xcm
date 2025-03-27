@@ -49,35 +49,35 @@ const storage = () => {
 
             return userConfig;
         },
-        getContestContestsTypes() {
+        getConsentConsentsTypes() {
             const userConfig = this.getUserConfig();
-            const contestList = {};
+            const consentList: Record<string, string> = {};
 
-            if (!userConfig?.contest) {
-                return contestList;
+            if (!userConfig?.consent) {
+                return consentList;
             }
 
             for (const category of settings.categories) {
 
-                if (! userConfig.contest[category.id]) {
+                if (! userConfig.consent[category.id]) {
                     continue;
                 }
 
-                const contestArray = category.contest_types?.split(',') ?? [];
+                const consentArray = category.consent_types?.split(',') ?? [];
 
-                for (const contestValue of contestArray) {
-                    contestList[contestValue] = 'granted';
+                for (const consentValue of consentArray) {
+                    consentList[consentValue] = 'granted';
                 }
             }
 
-            return contestList;
+            return consentList;
         },
         isProviderBlocked(providerName): ProviderForBlocking|boolean {
             const userConfig = this.getUserConfig();
 
             for (const category of settings.categories) {
 
-                if (userConfig?.contest[category.id]) {
+                if (userConfig?.consent[category.id]) {
                     continue;
                 }
 

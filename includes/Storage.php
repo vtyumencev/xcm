@@ -42,7 +42,7 @@ class Storage implements StorageInterface
             necessary,
             JSON_UNQUOTE(JSON_EXTRACT(name, '$.{$locale}')) as name,
             JSON_UNQUOTE(JSON_EXTRACT(description, '$.{$locale}')) as description,
-            contest_types
+            consent_types
         FROM {$table_name_categories}");
 
         $vendors = $wpdb->get_results("

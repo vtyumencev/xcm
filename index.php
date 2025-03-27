@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Plugin Name: Xenio Contest Manager
+ * Plugin Name: Xenio Consent Manager
  * Plugin URI: https://www.xenio-marketing.de
- * Description: Cookies and contest manager for WordPress websites
+ * Description: Cookies and consent manager for WordPress websites.
  * Version: 1.0.0
  * Text Domain: xcm
  * Domain Path: /languages

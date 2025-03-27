@@ -93,16 +93,16 @@ class PublicView
             FROM {$table_name_categories}
             WHERE necessary = false");
 
-        $contestList = array();
+        $consentList = array();
 
         foreach ($categories as $category) {
-            $contestList[$category->id] = isset($_POST['category'][$category->id]) && $_POST['category'][$category->id] === 'on';
+            $consentList[$category->id] = isset($_POST['category'][$category->id]) && $_POST['category'][$category->id] === 'on';
         }
 
         $settings = array(
             'plugin_version' => XCM_VERSION,
             'content_version' => XCM_VERSION,
-            'contest' => $contestList
+            'consent' => $consentList
         );
         $settingsJson = json_encode($settings);
 
@@ -119,7 +119,7 @@ class PublicView
     {
         wp_enqueue_style(
             XCM_NAME,
-            XCM_DIR_URL . 'dist/style.css',
+            XCM_DIR_URL . 'public/dist/style.css',
             array(),
             XCM_VERSION
         );
@@ -132,7 +132,7 @@ class PublicView
     {
         wp_enqueue_script(
             XCM_NAME,
-            XCM_DIR_URL . 'dist/scripts.js',
+            XCM_DIR_URL . 'public/dist/scripts.js',
             array(),
             XCM_VERSION
         );

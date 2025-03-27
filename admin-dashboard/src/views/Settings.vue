@@ -54,7 +54,7 @@ const save = () => {
         <div>
             <label>
                 <input type="checkbox" v-model="settings.is_active" />
-                Contest Manager is active
+                Consent Manager is active
             </label>
         </div>
         <div class="mt-5">

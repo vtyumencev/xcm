@@ -7,7 +7,7 @@ declare global {
             categories: {
                 id: number,
                 name: string,
-                contest_types: string,
+                consent_types: string,
                 necessary: boolean|string,
                 vendors: {
                     provider: string;

@@ -19,18 +19,18 @@ const gtm = () => {
     return {
         start(storage: Storage) {
             appStorage = storage;
-            gtag('consent', 'default', Object.assign(defaultConfig, appStorage.getContestContestsTypes()));
+            gtag('consent', 'default', Object.assign(defaultConfig, appStorage.getConsentConsentsTypes()));
             if (appStorage.getUserConfig()) {
-                gtag('event', 'update_contest');
+                gtag('event', 'update_consent');
             }
 
-            appStorage.on('contestUpdated', () => {
+            appStorage.on('consentUpdated', () => {
                 this.update();
             })
         },
         update() {
-            gtag('consent', 'update', Object.assign(defaultConfig, appStorage.getContestContestsTypes()));
-            gtag('event', 'update_contest');
+            gtag('consent', 'update', Object.assign(defaultConfig, appStorage.getConsentConsentsTypes()));
+            gtag('event', 'update_consent');
         }
     }
 }

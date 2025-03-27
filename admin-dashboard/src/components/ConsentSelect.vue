@@ -59,5 +59,5 @@ onUnmounted(() => {
 </script>
 
 <template>
-    <input ref="select" class="w-full" autocomplete="off" name="contest_types">
+    <input ref="select" class="w-full" autocomplete="off" name="consent_types">
 </template>

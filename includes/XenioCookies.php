@@ -8,6 +8,8 @@ class XenioCookies
     {
         register_activation_hook( XCM_FILE, array($this, 'pluginActivation'));
 
+        load_plugin_textdomain( 'xcm', false, basename( dirname( XCM_FILE ) ) . '/languages' );
+
         $storage = new Storage();
 
         new RestAPI();
@@ -42,7 +44,7 @@ class XenioCookies
             name json NOT NULL,
             necessary bool NOT NULL,
             description json,
-            contest_types mediumtext,
+            consent_types mediumtext,
             PRIMARY KEY  (id)
         ) $charset_collate;";
 

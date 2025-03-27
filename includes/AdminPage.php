@@ -9,8 +9,8 @@ class AdminPage
         add_action( 'admin_menu', array( $this, 'register_admin_dashboard' ));
 
         add_action( 'admin_enqueue_scripts', function () {
-            wp_enqueue_script( 'xcc-scripts', XCM_DIR_URL . 'admin-dashboard/dist/assets/index.js', array(), '', array('in_footer' => true));
-            //wp_enqueue_style( 'xcc-style', XCM_DIR_URL . 'admin-dashboard/dist/assets/index.css', array(), '');
+            wp_enqueue_script( 'xcc-scripts', XCM_DIR_URL . 'admin-dashboard/dist/scripts.js', array(), '', array('in_footer' => true));
+            wp_enqueue_style( 'xcc-style', XCM_DIR_URL . 'admin-dashboard/dist/style.css', array(), '');
             wp_localize_script( 'xcc-scripts', 'xenioCookiesSettings', array(
                 'root' => esc_url_raw( rest_url() ),
                 'nonce' => wp_create_nonce( 'wp_rest' )
@@ -21,10 +21,10 @@ class AdminPage
     {
         add_submenu_page(
             'options-general.php',
-            __( 'Cookies', 'xenio-cookies' ),
-            'Cookies',
+            __( 'Consent Manager', 'xcm' ),
+            'Consent Manager',
             'manage_options',
-            'xenio-cookies',
+            'xcm',
             array($this, 'render_admin_dashboard'),
         );
     }

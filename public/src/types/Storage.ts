@@ -1,12 +1,12 @@
 import UserConfig from "./UserConfig";
-import ContestTypes from "./ContestTypes";
+import ConsentTypes from "./ConsentTypes";
 import ProviderForBlocking from "./ProviderForBlocking";
 import Events from "./Events";
 import {Unsubscribe} from "nanoevents";
 
 export default interface Storage {
     getUserConfig: () => UserConfig,
-    getContestContestsTypes: () => ContestTypes,
+    getConsentConsentsTypes: () => ConsentTypes,
     isProviderBlocked: (providerName: string) => ProviderForBlocking|false,
     emit<K extends keyof Events>(
         this: this,

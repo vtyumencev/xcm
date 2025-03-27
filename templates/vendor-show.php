@@ -19,7 +19,7 @@ $periods = $args['periods'];
                     </g>
                 </svg>
                 <span class="xcc-vendor-links__link-label">
-                    Vendor's privacy page
+                    <?php echo __("Vendor's privacy page", 'xcm'); ?>
                 </span>
             </a>
         </div>
@@ -27,8 +27,8 @@ $periods = $args['periods'];
         <?php if ($vendor->cookies): ?>
             <div class="xcc-manager-cookies">
                 <div class="xcc-manager-cookies__header">
-                    <div class="xcc-manager-cookies">Cookie name</div>
-                    <div class="xcc-manager-cookies">Duration</div>
+                    <div class="xcc-manager-cookies"><?php echo __("Cookie name", 'xcm'); ?></div>
+                    <div class="xcc-manager-cookies"><?php echo __("Duration", 'xcm'); ?></div>
                 </div>
                 <div class="xcc-manager-cookies__list">
                     <?php foreach ($vendor->cookies as $cookie): ?>

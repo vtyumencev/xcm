@@ -52,7 +52,7 @@ const router = createRouter({
                     name: 'manager-categories',
                     component: CookieManagerCategories,
                     meta: {
-                        title: 'Cookies Categories',
+                        title: 'Consent categories',
                     },
                 },
                 {

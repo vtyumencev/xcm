@@ -23,7 +23,7 @@ const Blocker = () => {
                 updateReplacers();
             });
 
-            appStorage.on('contestUpdated', () => {
+            appStorage.on('consentUpdated', () => {
                 updateReplacers();
             })
         }

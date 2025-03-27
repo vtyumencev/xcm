@@ -13,8 +13,8 @@ let appStorage: Storage;
 const hasDisabledOptions = (oldConfig: UserConfig): boolean => {
     const currentUserConfig =  appStorage.getUserConfig();
 
-    for (const contest of Object.entries(currentUserConfig.contest)) {
-        if (oldConfig.contest[contest[0]] === true && contest[1] === false) {
+    for (const consent of Object.entries(currentUserConfig.consent)) {
+        if (oldConfig.consent[consent[0]] === true && consent[1] === false) {
             return true;
         }
     }
@@ -77,12 +77,12 @@ const submit = async (e) => {
         body: new FormData(e.target)
     }).then(response =>  response.json());
 
-    if (hasDisabledOptions(oldUserConfig)) {
+    if (oldUserConfig && hasDisabledOptions(oldUserConfig)) {
         // Reload to clean tag injections and prevent several tag injections
         window.location.reload();
     }
 
-    appStorage.emit('contestUpdated');
+    appStorage.emit('consentUpdated');
 }
 
 const initContent = (contentEl: HTMLElement, categoryId: number = null) => {
@@ -161,7 +161,7 @@ const Manager = () => {
             let fetchRequest = new Promise( (resolve) => resolve(true) );
 
             if (! modalEl) {
-                modalEl = modalTemplate('xenio-contest-modal');
+                modalEl = modalTemplate('xenio-consent-modal');
                 contentEl = modalEl.querySelector('.sx-modal-dialog__content');
                 document.body.appendChild(modalEl);
 
@@ -189,8 +189,8 @@ const Manager = () => {
             appStorage = storage;
 
             window.addEventListener("popstate", () => {
-                if (window.location.hash.startsWith("#contest-overview")) {
-                    const filter = window.location.hash.match(/#contest-overview\.cat\.(\d*)/);
+                if (window.location.hash.startsWith("#consent-overview")) {
+                    const filter = window.location.hash.match(/#consent-overview\.cat\.(\d*)/);
                     const categoryId = filter && (parseInt(filter[1]) ?? null);
                     this.show(true, categoryId);
                 }

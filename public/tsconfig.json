@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "typeRoots": ["./src/types"],
+    "target": "es2017",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "allowJs": true,
+    "strict": false,
+    "noEmit": true
+  }
+}

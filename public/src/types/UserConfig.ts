@@ -1,5 +1,5 @@
 export default interface UserConfig {
-    contest_version: string,
+    consent_version: string,
     plugin_version: string,
-    contest: Record<number, boolean>
+    consent: Record<number, boolean>
 }

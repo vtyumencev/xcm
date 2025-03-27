@@ -1,11 +1,15 @@
-import { fileURLToPath, URL } from 'node:url'
+import { fileURLToPath, URL } from 'node:url';
+import replace from '@rollup/plugin-replace';
 
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
+import { defineConfig } from 'vite';
+import vue from '@vitejs/plugin-vue';
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
+    replace({
+      'process.env.NODE_ENV': JSON.stringify('production')
+    }),
     vue(),
   ],
   resolve: {
@@ -14,13 +18,11 @@ export default defineConfig({
     }
   },
   build: {
-    rollupOptions: {
-      output: {
-        entryFileNames: `assets/[name].js`,
-        chunkFileNames: `assets/[name].js`,
-        assetFileNames: `assets/[name].[ext]`,
-        format: 'iife'
-      }
+    lib: {
+      entry: "src/main.ts",
+      formats: ["iife"],
+      fileName: () => 'scripts.js',
+      name: "App",
     },
   },
 })

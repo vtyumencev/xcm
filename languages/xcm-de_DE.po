@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Xenio Contest Manager\n"
+"Project-Id-Version: Xenio Consent Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-15 10:19+0000\n"
-"PO-Revision-Date: 2024-04-15 10:19+0000\n"
+"PO-Revision-Date: 2024-04-15 11:21+0000\n"
 "Last-Translator: \n"
 "Language-Team: Deutsch\n"
 "Language: de_DE\n"
@@ -27,14 +27,60 @@ msgid_plural "%d vendors"
 msgstr[0] ""
 msgstr[1] ""
 
-#. Description of the plugin
-msgid "Cookies and contest manager for WordPress websites"
+#: templates/embed-replacer.php:10
+#, php-format
+msgid "%s on this website is disabled for you."
+msgstr "%s auf dieser Website ist für Sie deaktiviert."
+
+#: templates/categories-index.php:82
+msgid "Accept all"
+msgstr "Allen zustimmen"
+
+#: templates/categories-index.php:34
+msgid "Always active"
+msgstr "Immer aktiv"
+
+#: templates/embed-replacer.php:14
+msgid "Change consent"
+msgstr "Einstellungen"
+
+#: templates/categories-index.php:81
+msgid "Confirm settings"
+msgstr "Einstellungen anwenden"
+
+#: includes/AdminPage.php:24
+msgid "Consent Manager"
 msgstr ""
+
+#: templates/vendor-show.php:30
+msgid "Cookie name"
+msgstr "Cookie-Name"
+
+#. Description of the plugin
+msgid "Cookies and consent manager for WordPress websites."
+msgstr ""
+
+#: templates/vendor-show.php:31
+msgid "Duration"
+msgstr "Dauer"
 
 #. URI of the plugin
 msgid "https://www.xenio-marketing.de"
 msgstr ""
 
+#: templates/embed-replacer.php:11
+#, php-format
+msgid ""
+"User consent is required to use third-party services in the category: <b>"
+"%s</b>."
+msgstr ""
+"Für die Nutzung von Drittanbieterdiensten in der Kategorie <b>%s</b> ist die "
+"Zustimmung des Benutzers erforderlich."
+
+#: templates/vendor-show.php:22
+msgid "Vendor's privacy page"
+msgstr "Datenschutzseite des Anbieters"
+
 #. Name of the plugin
-msgid "Xenio Contest Manager"
+msgid "Xenio Consent Manager"
 msgstr ""

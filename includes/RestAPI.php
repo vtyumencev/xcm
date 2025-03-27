@@ -207,7 +207,7 @@ class RestAPI
                 necessary,
                 JSON_UNQUOTE(JSON_EXTRACT(name, '$.{$locale}')) as name,
                 JSON_UNQUOTE(JSON_EXTRACT(description, '$.{$locale}')) as description,
-                contest_types
+                consent_types
             FROM {$table_name}
             WHERE id = {$params['id']}");
 
@@ -236,7 +236,7 @@ class RestAPI
                 necessary = {$necessary},
                 name = JSON_SET(name, '$.{$locale}', '{$params['name']}'),
                 description = JSON_SET(description, '$.{$locale}', '{$params['description']}'),
-                contest_types = \"{$params['contest_types']}\"
+                consent_types = \"{$params['consent_types']}\"
             WHERE id = {$params['id']}"));
 
 
@@ -272,16 +272,22 @@ class RestAPI
 
         $params = $request->get_params();
 
-        $locale = $params['locale'];
+        $languages = array_merge(['en_US'], get_available_languages());
 
         global $wpdb;
 
         $table_name = $wpdb->prefix . XCM_NAME . '_categories';
 
+        $nameArray = [];
+
+        foreach ($languages as $locale) {
+            $nameArray[$locale] = $params['name'];
+        }
+
         $wpdb->insert(
             $table_name,
             array(
-                'name' => json_encode(array($locale => $params['name'])),
+                'name' => json_encode($nameArray),
             )
         );
 

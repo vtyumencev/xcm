@@ -5,7 +5,7 @@ $categories = $args['categories'];
 
 if (isset($_COOKIE[XCM_NAME])) {
     $json = json_decode(stripslashes($_COOKIE[XCM_NAME]), true);
-    $contestList = $json['contest'] ?? array();
+    $consentList = $json['consent'] ?? array();
 }
 
 ?>
@@ -31,13 +31,13 @@ if (isset($_COOKIE[XCM_NAME])) {
                         <div class="xcc-manager-category-header__control">
                             <button class="xcc-manager-category-header__toggle js-xcc-manager-category-toggle" type="button"></button>
                             <?php if ($category->necessary): ?>
-                                <div class="">Always active</div>
+                                <div class=""><?php echo __("Always active", 'xcm'); ?></div>
                             <?php else: ?>
                                 <label class="xcc-manager-category-switch">
                                     <input
                                             type="checkbox"
                                             name="category[<?php echo $category->id; ?>]"
-                                            <?php echo (isset($contestList[$category->id]) && $contestList[$category->id] === true ? 'checked' : ''); ?>
+                                            <?php echo (isset($consentList[$category->id]) && $consentList[$category->id] === true ? 'checked' : ''); ?>
                                     />
                                     <span class="xcc-manager-category-switch__wrapper">
                                         <span class="xcc-manager-category-switch__dot"></span>
@@ -78,8 +78,8 @@ if (isset($_COOKIE[XCM_NAME])) {
         <div class="xcc-manager-footer">
             <div class="xcc-manager-footer__bg"></div>
             <div class="xcc-manager-footer__buttons">
-                <button class="xcc-manager-footer__button" data-action="accept-selected"><?php echo __('Einstellungen anwenden'); ?></button>
-                <button class="xcc-manager-footer__button xcc-manager-footer__button--primary" data-action="accept-all"><?php echo __('Allen zustimmen'); ?></button>
+                <button class="xcc-manager-footer__button" data-action="accept-selected"><?php echo __('Confirm settings', 'xcm'); ?></button>
+                <button class="xcc-manager-footer__button xcc-manager-footer__button--primary" data-action="accept-all"><?php echo __('Accept all', 'xcm'); ?></button>
             </div>
         </div>
     </form>

@@ -1,14 +1,13 @@
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Xenio Consent Manager\n"
+"Project-Id-Version: Xenio Contest Manager\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-15 11:20+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: \n"
-"Language: \n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"POT-Creation-Date: 2024-04-15 10:19+0000\n"
+"PO-Revision-Date: 2024-04-15 11:18+0000\n"
+"Last-Translator: \n"
+"Language-Team: Deutsch\n"
+"Language: de_DE\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -35,22 +34,18 @@ msgstr ""
 
 #: templates/categories-index.php:82
 msgid "Accept all"
-msgstr ""
-
-#: templates/categories-index.php:34
-msgid "Always active"
-msgstr ""
+msgstr "Allen zustimmen"
 
 #: templates/embed-replacer.php:14
-msgid "Change consent"
-msgstr ""
+msgid "Change contest"
+msgstr "Einstellungen"
 
 #: templates/categories-index.php:81
 msgid "Confirm settings"
-msgstr ""
+msgstr "Einstellungen anwenden"
 
 #: includes/AdminPage.php:24
-msgid "Consent Manager"
+msgid "Contest Manager"
 msgstr ""
 
 #: templates/vendor-show.php:30
@@ -58,7 +53,7 @@ msgid "Cookie name"
 msgstr ""
 
 #. Description of the plugin
-msgid "Cookies and consent manager for WordPress websites."
+msgid "Cookies and contest manager for WordPress websites."
 msgstr ""
 
 #: templates/vendor-show.php:31
@@ -81,5 +76,5 @@ msgid "Vendor's privacy page"
 msgstr ""
 
 #. Name of the plugin
-msgid "Xenio Consent Manager"
+msgid "Xenio Contest Manager"
 msgstr ""

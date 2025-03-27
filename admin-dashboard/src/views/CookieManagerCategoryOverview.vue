@@ -4,7 +4,7 @@ import apiFetch from '@wordpress/api-fetch';
 import {onMounted, ref} from "vue";
 import ProcessingButton from "@/components/ProcessingButton.vue";
 import PageHeader from "@/components/PageHeader.vue";
-import ContestSelect from "@/components/ContestSelect.vue";
+import ConsentSelect from "@/components/ConsentSelect.vue";
 import {useRouter} from "vue-router";
 import Quill from "quill";
 import "quill/dist/quill.snow.css";
@@ -36,12 +36,9 @@ onMounted(() => {
         placeholder: 'Description...',
         theme: 'snow',
     });
-
 });
 
-onMounted(() => {
-    //TODO: (?) destroy the editor
-})
+//TODO: (?) destroy the editor
 
 const saveForm = async (e: Event) => {
 
@@ -104,12 +101,12 @@ const deleteEntry = async () => {
             <div>
                 <label>
                     <input v-model="cookieCategory.necessary" type="checkbox" name="necessary">
-                    Always active without user contest
+                    Always active without user consent
                 </label>
             </div>
             <div>
-                <div class="text-">Contest types</div>
-                <ContestSelect v-model="cookieCategory.contest_types" />
+                <div class="text-">Consent types</div>
+                <ConsentSelect v-model="cookieCategory.consent_types" />
             </div>
             <div class="flex justify-between">
                 <div class="">
