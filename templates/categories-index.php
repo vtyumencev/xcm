@@ -25,7 +25,7 @@ if (isset($_COOKIE[XCM_NAME])) {
                                 <?php echo $category->name; ?>
                             </div>
                             <div class="xcm-manager-category-header__metas">
-                                <?php echo esc_html(sprintf( _n( '%d vendor', '%d vendors', $category->vendors, 'xcm' ), $category->vendors ) ); ?>
+                                <?php echo esc_html(sprintf( _n( '%d vendor', '%d vendors', count($category->vendors), 'xcm' ), count($category->vendors) ) ); ?>
                             </div>
                         </div>
                         <div class="xcm-manager-category-header__control">

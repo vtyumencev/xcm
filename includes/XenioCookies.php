@@ -143,7 +143,7 @@ class XenioCookies
             consent json,
             plugin_version varchar(255),
             content_version varchar(255),
-            previus_consent_id INT UNSIGNED,
+            previous_consent_id INT UNSIGNED,
             PRIMARY KEY  (id)
         ) $charset_collate;";
 
