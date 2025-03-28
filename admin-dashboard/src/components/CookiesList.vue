@@ -9,8 +9,8 @@ const props = defineProps<{
     cookies: Cookie[]
 }>();
 
-const { option } = useSortable(cookiesListEl, props.cookies);
-option('animation', 200);
+// const { option } = useSortable(cookiesListEl, props.cookies);
+// option('animation', 200);
 
 const addCookie = () => {
     props.cookies.push({
@@ -44,7 +44,7 @@ const deleteCookie = (item: Cookie, index: number) => {
             <div
                 class="cookie-item grid grid-cols-[2fr_1fr_60px] items-center gap-2 hover:bg-gray-200 py-1 px-2 -mx-2"
                 v-for="(item, index) of cookies"
-                :key="item.name">
+                :key="index">
                 <div class="">
                     <input class="w-full" type="text" v-model="item.name" required />
                 </div>

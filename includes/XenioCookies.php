@@ -39,8 +39,8 @@ class XenioCookies
 
         $categories_table_name = $wpdb->prefix . XCM_NAME . '_categories';
 
-        $sql = "CREATE TABLE $categories_table_name (
-            id mediumint(9) NOT NULL AUTO_INCREMENT,
+        $sql = "CREATE TABLE IF NOT EXISTS $categories_table_name (
+            id INT UNSIGNED NOT NULL AUTO_INCREMENT,
             name json NOT NULL,
             necessary bool NOT NULL,
             description json,
@@ -53,16 +53,16 @@ class XenioCookies
 
         $vendors_table_name = $wpdb->prefix . XCM_NAME . '_vendors';
 
-        $sql = "CREATE TABLE $vendors_table_name (
+        $sql = "CREATE TABLE IF NOT EXISTS $vendors_table_name (
             id mediumint(9) NOT NULL AUTO_INCREMENT,
-            category_id mediumint(9) NOT NULL,
+            category_id INT UNSIGNED NOT NULL,
             name mediumtext NOT NULL,
             link mediumtext,
             description json,
             provider mediumtext,
             cookies json,
             PRIMARY KEY  (id),
-            FOREIGN KEY  (category_id) REFERENCES $categories_table_name(id)
+            FOREIGN KEY  (category_id) REFERENCES `$categories_table_name`(id)
         ) $charset_collate;";
 
         require_once ABSPATH . 'wp-admin/includes/upgrade.php';
@@ -134,6 +134,21 @@ class XenioCookies
                 );
             }
         }
+
+        $consent_logs_table_name = $wpdb->prefix . XCM_NAME . '_consent_logs';
+
+        $sql = "CREATE TABLE IF NOT EXISTS $consent_logs_table_name (
+            id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+            datetime datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            consent json,
+            plugin_version varchar(255),
+            content_version varchar(255),
+            previus_consent_id INT UNSIGNED,
+            PRIMARY KEY  (id)
+        ) $charset_collate;";
+
+        require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+        dbDelta( $sql );
 
         update_option( XCM_NAME . '_db_version',  XCM_DB_VERSION, 'no');
 

@@ -25,5 +25,5 @@ app.use(router);
 apiFetch.use(apiFetch.createNonceMiddleware( window.xenioCookiesSettings.nonce ));
 apiFetch.use(apiFetch.createRootURLMiddleware( '/wp-json/xcm/v1/' ));
 
-app.mount('#xcc-admin-app')
+app.mount('#xcm-admin-app')
 

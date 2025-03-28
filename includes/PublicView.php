@@ -99,13 +99,25 @@ class PublicView
             $consentList[$category->id] = isset($_POST['category'][$category->id]) && $_POST['category'][$category->id] === 'on';
         }
 
+        $table_name = $wpdb->prefix . XCM_NAME . '_consent_logs';
+
+        $wpdb->insert(
+            $table_name,
+            array(
+                'plugin_version' => XCM_VERSION,
+                'content_version' => XCM_VERSION,
+                'consent' => json_encode($consentList)
+            )
+        );
+
         $settings = array(
             'plugin_version' => XCM_VERSION,
             'content_version' => XCM_VERSION,
-            'consent' => $consentList
+            'consent' => $consentList,
+            'consent_id' => $wpdb->insert_id
         );
-        $settingsJson = json_encode($settings);
 
+        $settingsJson = json_encode($settings);
         setcookie(XCM_NAME, $settingsJson, time() + 31536000, '/'); // One Year
 
         echo $settingsJson;

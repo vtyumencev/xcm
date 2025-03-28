@@ -9,9 +9,9 @@ class AdminPage
         add_action( 'admin_menu', array( $this, 'register_admin_dashboard' ));
 
         add_action( 'admin_enqueue_scripts', function () {
-            wp_enqueue_script( 'xcc-scripts', XCM_DIR_URL . 'admin-dashboard/dist/scripts.js', array(), '', array('in_footer' => true));
-            wp_enqueue_style( 'xcc-style', XCM_DIR_URL . 'admin-dashboard/dist/style.css', array(), '');
-            wp_localize_script( 'xcc-scripts', 'xenioCookiesSettings', array(
+            wp_enqueue_script( 'xcm-scripts', XCM_DIR_URL . 'admin-dashboard/dist/scripts.js', array(), '', array('in_footer' => true));
+            wp_enqueue_style( 'xcm-style', XCM_DIR_URL . 'admin-dashboard/dist/style.css', array(), '');
+            wp_localize_script( 'xcm-scripts', 'xenioCookiesSettings', array(
                 'root' => esc_url_raw( rest_url() ),
                 'nonce' => wp_create_nonce( 'wp_rest' )
             ) );

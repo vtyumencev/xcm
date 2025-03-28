@@ -50,7 +50,7 @@
 // }
 //
 // const unblockAllNodes = () => {
-//     document.querySelector('body').classList.remove('xcc--blocking');
+//     document.querySelector('body').classList.remove('xcm--blocking');
 //     blockedNodes.forEach(({ node, position, placeholderId }) => {
 //
 //         if (node.nodeName.toLowerCase() === "iframe") {
@@ -81,7 +81,7 @@
 //         ...objectOptions
 //     }
 //
-//     const placeholderId = 'xcc-placeholder-' + randomString(13);
+//     const placeholderId = 'xcm-placeholder-' + randomString(13);
 //     const placeholderBody = `
 //         <div class="embed-placeholder embed-placeholder--${provider.slug} ${options.absolute ? 'embed-placeholder--absolute' : ''}" id="${placeholderId}">
 //             <div class="embed-placeholder__wrapper">
@@ -162,7 +162,7 @@
 //             //
 //             //     if (provider.slug === 'twitter') {
 //             //         const blockQuote = [...node.parentElement.children].find(c => c.classList.contains('twitter-tweet'));
-//             //         blockQuote?.classList.add('xcc-found-blockquote');
+//             //         blockQuote?.classList.add('xcm-found-blockquote');
 //             //     }
 //             //
 //             //     let placeholderId = iframePlaceholder(node, provider, {

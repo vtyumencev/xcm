@@ -2,7 +2,7 @@ import Modal from '@stiumentsev/modal';
 import Storage from "./types/Storage";
 import UserConfig from "./types/UserConfig";
 
-const CLASS_CAT = 'js-xcc-manager-category-review';
+const CLASS_CAT = 'js-xcm-manager-category-review';
 let modalEl: HTMLElement;
 let contentEl: HTMLElement;
 let appStorage: Storage;
@@ -34,7 +34,7 @@ const onClickVendor = (e) => {
 
     const vendorId = e.target.getAttribute('data-vendor-id');
 
-    const modalEl = modalTemplate('xcc-modal-vendor');
+    const modalEl = modalTemplate('xcm-modal-vendor');
     document.body.appendChild(modalEl);
 
 
@@ -61,7 +61,7 @@ const submit = async (e) => {
     e.preventDefault();
 
     if (e.submitter.getAttribute('data-action') === 'accept-all') {
-        e.target.querySelectorAll('.xcc-manager-category-switch input').forEach((el) => {
+        e.target.querySelectorAll('.xcm-manager-category-switch input').forEach((el) => {
             el.checked = true;
         })
     }
@@ -86,16 +86,16 @@ const submit = async (e) => {
 }
 
 const initContent = (contentEl: HTMLElement, categoryId: number = null) => {
-    contentEl.querySelectorAll('.js-xcc-manager-category-toggle').forEach((itemEl) => {
+    contentEl.querySelectorAll('.js-xcm-manager-category-toggle').forEach((itemEl) => {
         itemEl.addEventListener('click', onClickCategory);
     });
 
-    contentEl.querySelectorAll('.js-xcc-vendor-review').forEach((itemEl) => {
+    contentEl.querySelectorAll('.js-xcm-vendor-review').forEach((itemEl) => {
         itemEl.addEventListener('click', onClickVendor);
     });
 
     if (categoryId) {
-        const categoryEl = contentEl.querySelector(`.xcc-manager-category[data-id="${categoryId}"]`);
+        const categoryEl = contentEl.querySelector(`.xcm-manager-category[data-id="${categoryId}"]`);
         if (categoryEl) {
             setTimeout(() => {
                 categoryEl.classList.add('active');
@@ -104,31 +104,32 @@ const initContent = (contentEl: HTMLElement, categoryId: number = null) => {
         }
     }
 
-    contentEl.querySelector('.js-xcc-manager-form').addEventListener('submit', submit);
+    contentEl.querySelector('.js-xcm-manager-form').addEventListener('submit', submit);
 }
 
 const destroyContent = (contentEl) => {
-    contentEl.querySelectorAll('.js-xcc-manager-category-toggle').forEach((itemEl) => {
+    contentEl.querySelectorAll('.js-xcm-manager-category-toggle').forEach((itemEl) => {
         itemEl.removeEventListener('click', onClickCategory);
     });
 
-    contentEl.querySelectorAll('.js-xcc-vendor-review').forEach((itemEl) => {
+    contentEl.querySelectorAll('.js-xcm-vendor-review').forEach((itemEl) => {
         itemEl.removeEventListener('click', onClickVendor);
     });
 
-    contentEl.querySelector('.js-xcc-manager-form').removeEventListener('submit', submit);
+    contentEl.querySelector('.js-xcm-manager-form').removeEventListener('submit', submit);
 }
 
 const modalTemplate = (formId) => {
     const modalEl = document.createElement('div');
     modalEl.classList.add('sx-modal');
+    modalEl.classList.add('xcm-modal');
     modalEl.setAttribute('id', formId);
     modalEl.innerHTML = `
             <div class="sx-modal__inner">
                 <div class="sx-modal-dialog__bg"></div>
                 <div class="sx-modal-dialog modal-dialog--lg">
                     <div class="sx-modal-dialog__container">
-                        <div class="sx-modal-dialog__body">
+                        <div class="sx-modal-dialog__body js-sx-modal-dialog-body">
                             <div class="sx-modal-dialog__content"></div>
                         </div>
                     </div>

@@ -1,4 +1,4 @@
-const xcc = (() => {
+const xcm = (() => {
 
     let blockedNodes = [];
 
@@ -48,7 +48,7 @@ const xcc = (() => {
     }
 
     const unblockAllNodes = () => {
-        document.querySelector('body').classList.remove('xcc--blocking');
+        document.querySelector('body').classList.remove('xcm--blocking');
         blockedNodes.forEach(({ node, position, placeholderId }) => {
 
             if (node.nodeName.toLowerCase() === "iframe") {
@@ -79,7 +79,7 @@ const xcc = (() => {
             ...objectOptions
         }
 
-        const placeholderId = 'xcc-placeholder-' + randomString(13);
+        const placeholderId = 'xcm-placeholder-' + randomString(13);
         const placeholderBody = `
         <div class="embed-placeholder embed-placeholder--${provider.slug} ${options.absolute ? 'embed-placeholder--absolute' : ''}" id="${placeholderId}">
             <div class="embed-placeholder__wrapper">
@@ -147,7 +147,7 @@ const xcc = (() => {
 
                     if (provider.slug === 'twitter') {
                         const blockQuote = [...node.parentElement.children].find(c => c.classList.contains('twitter-tweet'));
-                        blockQuote?.classList.add('xcc-found-blockquote');
+                        blockQuote?.classList.add('xcm-found-blockquote');
                     }
 
                     const nodePosition =
@@ -177,22 +177,22 @@ const xcc = (() => {
                 subtree: true,
             });
 
-            let xccSettings;
+            let xcmSettings;
 
             try {
-                const xccSettingsRaw = xccCookiesParser.getCookie('xenio_cookies');
-                xccSettings = JSON.parse(decodeURIComponent(xccSettingsRaw));
+                const xcmSettingsRaw = xcmCookiesParser.getCookie('xenio_cookies');
+                xcmSettings = JSON.parse(decodeURIComponent(xcmSettingsRaw));
             } catch (e) {
 
             }
 
             window.addEventListener('DOMContentLoaded', () => {
                 // if (rules.embedsEnabled) {
-                //     //document.querySelector('body').classList.add('xcc--blocking');
+                //     //document.querySelector('body').classList.add('xcm--blocking');
                 // }
 
-                if (! xccSettings) {
-                    xccManager.show();
+                if (! xcmSettings) {
+                    xcmManager.show();
                 }
 
             });
@@ -202,11 +202,11 @@ const xcc = (() => {
 })();
 
 
-const xccNodesBlocker = (() => {
+const xcmNodesBlocker = (() => {
 
 })();
 
-const xccManager = (() => {
+const xcmManager = (() => {
 
 
     return {
@@ -217,7 +217,7 @@ const xccManager = (() => {
 })();
 
 
-const xccCookiesParser = (() => {
+const xcmCookiesParser = (() => {
     return {
         setCookie: (cname, cvalue, exdays) => {
             const d = new Date();
@@ -242,4 +242,4 @@ const xccCookiesParser = (() => {
     }
 })();
 
-xcc.init();
+xcm.init();

@@ -1,7 +1,7 @@
 <?php
 ?>
 
-<div id="xcc-admin-app"></div>
+<div id="xcm-admin-app"></div>
 
 <!--<form method="post" action="options.php">-->
 <!--    --><?php

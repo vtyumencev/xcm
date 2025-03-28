@@ -1,7 +1,10 @@
-:root {
-    --xcc-color-alpha: #3192D0;
-    --xcc-color-omega: #FFFFFF;
-}
+@use "manager";
+@use "embed-replacer";
 
-@import "manager";
-@import "embed-replacer";
+:root {
+    --xcm-color-alpha: #3192D0;
+    --xcm-color-chi: #FFFFFF;
+    --xcm-color-omega: #FFFFFF;
+    --xcm-color-psi: #000000;
+    --xcm-color-psi-rgb: 0, 0, 0;
+}

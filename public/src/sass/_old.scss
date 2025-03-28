@@ -1,17 +1,17 @@
-body.xcc--blocking blockquote.instagram-media,
-body.xcc--blocking blockquote.twitter-tweet
+body.xcm--blocking blockquote.instagram-media,
+body.xcm--blocking blockquote.twitter-tweet
 {
     display: none;
 }
 
-body:not(.xcc--blocking) .embed-placeholder-content__title,
-body:not(.xcc--blocking) .embed-placeholder-content__main,
-body:not(.xcc--blocking) .embed-placeholder-content__warning
+body:not(.xcm--blocking) .embed-placeholder-content__title,
+body:not(.xcm--blocking) .embed-placeholder-content__main,
+body:not(.xcm--blocking) .embed-placeholder-content__warning
 {
 
 }
 
-.xcc-found-blockquote {
+.xcm-found-blockquote {
     display: none;
 }
 
@@ -124,11 +124,11 @@ body:not(.xcc--blocking) .embed-placeholder-content__warning
 
  */
 
-body.has-active-xcc-modal {
+body.has-active-xcm-modal {
     overflow: hidden;
 }
 
-.xcc-modal-wrapper {
+.xcm-modal-wrapper {
     display: none;
     position: fixed;
     top: 0;
@@ -137,13 +137,13 @@ body.has-active-xcc-modal {
     right: 0;
     z-index: 100;
 }
-body.admin-bar .xcc-modal-wrapper {
+body.admin-bar .xcm-modal-wrapper {
     top: var(--wp-admin--admin-bar--height);
 }
-.xcc-modal-wrapper.shown {
+.xcm-modal-wrapper.shown {
     display: block;
 }
-.xcc-modal-wrapper__inner {
+.xcm-modal-wrapper__inner {
     position: relative;
     overflow: auto;
     height: 100%;
@@ -151,10 +151,10 @@ body.admin-bar .xcc-modal-wrapper {
     background: rgba(0, 0, 0, 0);
     transition: 0.3s;
 }
-.xcc-modal-wrapper.visible .xcc-modal-wrapper__inner {
+.xcm-modal-wrapper.visible .xcm-modal-wrapper__inner {
     background: rgba(0, 0, 0, 0.5);
 }
-.xcc-modal {
+.xcm-modal {
     position: relative;
     margin: auto;
     opacity: 0;
@@ -163,33 +163,33 @@ body.admin-bar .xcc-modal-wrapper {
     width: 100%;
     max-width: 700px;
 }
-.xcc-modal--lg {
+.xcm-modal--lg {
     max-width: 1000px;
 }
-.xcc-modal--sm {
+.xcm-modal--sm {
     max-width: 600px;
 }
-.xcc-modal__container {
+.xcm-modal__container {
     margin: 3em 1em;
 }
-.xcc-modal__body {
+.xcm-modal__body {
     padding: 0;
     background: #fff;
     box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.2);
 }
-.xcc-modal__content {
+.xcm-modal__content {
     padding: 1em;
 }
-.xcc-modal-wrapper.visible .xcc-modal {
+.xcm-modal-wrapper.visible .xcm-modal {
     opacity: 1;
     transform: translateY(0);
 }
-.xcc-modal__header {
+.xcm-modal__header {
     display: flex;
     justify-content: end;
     margin: 0 1em 0 1em;
 }
-.xcc-modal__buttons {
+.xcm-modal__buttons {
     display: flex;
     justify-content: end;
     margin: 1em 1em 0 1em;
