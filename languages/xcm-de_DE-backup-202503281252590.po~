@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Xenio Consent Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-15 10:19+0000\n"
-"PO-Revision-Date: 2025-03-28 12:53+0000\n"
+"PO-Revision-Date: 2025-03-28 12:52+0000\n"
 "Last-Translator: \n"
 "Language-Team: Deutsch\n"
 "Language: de_DE\n"
@@ -24,8 +24,8 @@ msgstr[1] ""
 #: templates/categories-index.php:28
 msgid "%d vendor"
 msgid_plural "%d vendors"
-msgstr[0] "%d anbieter"
-msgstr[1] "%d anbieter"
+msgstr[0] "Anbieter"
+msgstr[1] "Anbieter"
 
 #: templates/embed-replacer.php:10
 #, php-format
