@@ -5,6 +5,7 @@ import Events from "./Events";
 import {Unsubscribe} from "nanoevents";
 
 export default interface Storage {
+    prolongConfig: () => void,
     getUserConfig: () => UserConfig,
     getConsentConsentsTypes: () => ConsentTypes,
     isProviderBlocked: (providerName: string) => ProviderForBlocking|false,

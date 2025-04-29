@@ -4,12 +4,11 @@
     "autoload": {
         "psr-4": {
             "XenioCookies\\": "includes/"
-            }
+        }
     },
     "authors": [
         {
             "name": "Slava"
         }
-    ],
-    "require": {}
+    ]
 }

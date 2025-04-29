@@ -6,27 +6,33 @@ use XenioCookies\Interfaces\StorageInterface;
 
 /**
  * Enqueuing scripts and styles
- * Exposing gateways for AJAX requests form clients
+ * Exposing gateways for AJAX requests from the cookie banner
  */
 class PublicView
 {
-    public function __construct(
-        public StorageInterface $storage
-    )
+    public StorageInterface $storage;
+
+    public function __construct(StorageInterface $storage)
     {
-        add_action( 'wp_enqueue_scripts', array($this, 'enqueueStyle'));
-        add_action( 'wp_enqueue_scripts', array($this, 'enqueueScript'));
+        $this->storage = $storage;
 
-        add_action("wp_ajax_xcm_overview", array($this, 'categories'));
-        add_action("wp_ajax_nopriv_xcm_overview", array($this, 'categories'));
+        add_action( 'wp_enqueue_scripts', [$this, 'enqueueStyle']);
+        add_action( 'wp_enqueue_scripts', [$this, 'enqueueScript']);
 
-        add_action("wp_ajax_xcm_vendor", array($this, 'vendor'));
-        add_action("wp_ajax_nopriv_xcm_vendor", array($this, 'vendor'));
+        add_action("wp_ajax_xcm_overview", [$this, 'categories']);
+        add_action("wp_ajax_nopriv_xcm_overview", [$this, 'categories']);
 
-        add_action("wp_ajax_xcm_update", array($this, 'update'));
-        add_action("wp_ajax_nopriv_xcm_update", array($this, 'update'));
+        add_action("wp_ajax_xcm_vendor", [$this, 'vendor']);
+        add_action("wp_ajax_nopriv_xcm_vendor", [$this, 'vendor']);
+
+        add_action("wp_ajax_xcm_update", [$this, 'update']);
+        add_action("wp_ajax_nopriv_xcm_update", [$this, 'update']);
     }
 
+    /**
+     * Ajax method for listing categories in the cookie banner
+     * @return void
+     */
     public function categories()
     {
         $locale = get_locale();
@@ -40,6 +46,10 @@ class PublicView
         wp_die();
     }
 
+    /**
+     * Ajax method for listing vendors in the cookie banner
+     * @return void
+     */
     public function vendor()
     {
         $locale = get_locale();
@@ -83,44 +93,79 @@ class PublicView
         wp_die();
     }
 
+    /**
+     * Ajax method for saving user's consent made with the banner
+     * @return void
+     */
     public function update()
     {
         global $wpdb;
         $table_name_categories = $wpdb->prefix . XCM_NAME . '_categories';
 
         $categories = $wpdb->get_results("
-            SELECT id
-            FROM {$table_name_categories}
-            WHERE necessary = false");
+        SELECT id
+        FROM {$table_name_categories}
+        WHERE necessary = false");
 
-        $consentList = array();
+        $consentList = [];
 
         foreach ($categories as $category) {
             $consentList[$category->id] = isset($_POST['category'][$category->id]) && $_POST['category'][$category->id] === 'on';
         }
 
+
         $table_name = $wpdb->prefix . XCM_NAME . '_consent_logs';
+
+        $previousConsentId = null;
+
+        // Try to get the previous consent and verify its existence
+        try {
+            if (isset($_COOKIE['xcm'])) {
+                $currentConsent = json_decode(stripslashes($_COOKIE['xcm']));
+                if ($currentConsent) {
+                    $results = $wpdb->get_results("
+                        SELECT id
+                        FROM {$table_name}
+                        WHERE hash = '" . esc_sql($currentConsent->hash) . "' AND id = " . esc_sql($currentConsent->consent_id)
+                    );
+
+                    if ($results) {
+                        $previousConsentId = $currentConsent->consent_id;
+                    }
+                }
+            }
+        } catch (\Exception $e) {
+
+        }
+
+        $newHash = crc32(time());
 
         $wpdb->insert(
             $table_name,
-            array(
+            [
                 'plugin_version' => XCM_VERSION,
-                'content_version' => XCM_VERSION,
-                'consent' => json_encode($consentList)
-            )
+                'content_version' => 1,
+                'consent' => json_encode($consentList),
+                'hash' => $newHash,
+                'previous_consent_id' => $previousConsentId,
+            ]
         );
 
-        $settings = array(
+        $settings = [
             'plugin_version' => XCM_VERSION,
-            'content_version' => XCM_VERSION,
+            'content_version' => 1,
             'consent' => $consentList,
-            'consent_id' => $wpdb->insert_id
-        );
+            'consent_id' => $wpdb->insert_id,
+            'hash' => $newHash,
+        ];
 
         $settingsJson = json_encode($settings);
-        setcookie(XCM_NAME, $settingsJson, time() + 31536000, '/'); // One Year
+
+        // Set the cookie for one year
+        setcookie(XCM_NAME, $settingsJson, time() + 31536000, '/');
 
         echo $settingsJson;
+
         wp_die();
     }
 
@@ -132,7 +177,7 @@ class PublicView
         wp_enqueue_style(
             XCM_NAME,
             XCM_DIR_URL . 'public/dist/style.css',
-            array(),
+            [],
             XCM_VERSION
         );
     }
@@ -145,14 +190,14 @@ class PublicView
         wp_enqueue_script(
             XCM_NAME,
             XCM_DIR_URL . 'public/dist/scripts.js',
-            array(),
+            [],
             XCM_VERSION
         );
 
-        wp_localize_script( XCM_NAME, 'XCMSettingsPublic', array(
-            'restUrl' => esc_url_raw( rest_url() ),
-            'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+        wp_localize_script(XCM_NAME, 'XCMSettingsPublic', [
+            'restUrl' => esc_url_raw(rest_url()),
+            'ajaxUrl' => admin_url('admin-ajax.php'),
             'categories' => $this->storage->getCategories(),
-        ));
+        ]);
     }
 }

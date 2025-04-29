@@ -200,6 +200,8 @@ const Manager = () => {
             window.addEventListener('DOMContentLoaded', () => {
                 if (!appStorage.getUserConfig()) {
                     this.show(false);
+                } else {
+                    appStorage.prolongConfig()
                 }
             }, {
                 once: true

@@ -5,7 +5,6 @@ $vendor = $args['vendor'];
 $periods = $args['periods'];
 
 ?>
-
 <section class="xcm-manager xcm-vendor">
     <div class="xcm-manager__desc">
         <h1 class="xcm-manager__headline"><?php echo $vendor->name; ?></h1>

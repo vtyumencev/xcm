@@ -65,11 +65,6 @@ if (isset($_COOKIE[XCM_NAME])) {
                                                 <div class="xcm-manager-vendor__heading">
                                                     <?php echo $vendor->name; ?>
                                                 </div>
-<!--                                                --><?php //if ($vendor->cookies_count): ?>
-<!--                                                    <div class="">-->
-<!--                                                        --><?php //echo esc_html(sprintf( _n( '%d cookie', '%d cookies', $vendor->cookies_count, 'xcm' ), $vendor->cookies_count ) ); ?>
-<!--                                                    </div>-->
-<!--                                                --><?php //endif; ?>
                                             </div>
                                             <button
                                                     class="xcm-manager-vendor__button js-xcm-vendor-review"

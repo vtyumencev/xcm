@@ -29,7 +29,8 @@ class RestAPI
      *
      * @return void
      */
-    public function define_routes() {
+    public function define_routes()
+    {
         $this->routes = array(
             array(
                 'path'      => 'categories',
@@ -146,7 +147,8 @@ class RestAPI
      *
      * @return void
      */
-    public function register_v1_routes() {
+    public function register_v1_routes()
+    {
         foreach ( $this->routes as $route ) {
             register_rest_route(
                 XCM_NAME . "/v1",
@@ -161,13 +163,14 @@ class RestAPI
         }
     }
 
-    public function rest_permission_check() {
+    public function rest_permission_check()
+    {
         return current_user_can( 'manage_options' );
         //return true;
     }
 
-    public function get_categories( WP_REST_Request $request ) {
-
+    public function get_categories( WP_REST_Request $request )
+    {
         global $wpdb;
 
         $params = $request->get_params();
@@ -191,8 +194,8 @@ class RestAPI
         return new WP_REST_Response( $entries, 200 );
     }
 
-    public function get_category( WP_REST_Request $request ) {
-
+    public function get_category(WP_REST_Request $request)
+    {
         $params = $request->get_params();
 
         $locale = $params['locale'];
@@ -218,8 +221,8 @@ class RestAPI
         return new WP_Error(404);
     }
 
-    public function save_category( WP_REST_Request $request ) {
-
+    public function save_category(WP_REST_Request $request)
+    {
         $params = $request->get_params();
 
         $locale = $params['locale'];
@@ -243,8 +246,8 @@ class RestAPI
         return new WP_REST_Response( array(), 200 );
     }
 
-    public function delete_category( WP_REST_Request $request ) {
-
+    public function delete_category(WP_REST_Request $request)
+    {
         $params = $request->get_params();
 
         global $wpdb;
@@ -268,8 +271,8 @@ class RestAPI
         return new WP_Error( 404, 'Could not find this entry.' );
     }
 
-    public function add_category( WP_REST_Request $request ) {
-
+    public function add_category(WP_REST_Request $request)
+    {
         $params = $request->get_params();
 
         $languages = array_merge(['en_US'], get_available_languages());
@@ -296,8 +299,8 @@ class RestAPI
         ), 200 );
     }
 
-    public function get_vendors( WP_REST_Request $request ) {
-
+    public function get_vendors(WP_REST_Request $request)
+    {
         $params = $request->get_params();
 
         global $wpdb;
@@ -315,8 +318,8 @@ class RestAPI
         return new WP_REST_Response( $entries, 200 );
     }
 
-    public function get_vendor( WP_REST_Request $request ) {
-
+    public function get_vendor(WP_REST_Request $request)
+    {
         $params = $request->get_params();
 
         $locale = $params['locale'];
@@ -343,8 +346,8 @@ class RestAPI
 
         return new WP_Error(404);
     }
-    public function add_vendor( WP_REST_Request $request ) {
-
+    public function add_vendor(WP_REST_Request $request)
+    {
         $params = $request->get_params();
 
         global $wpdb;
@@ -364,8 +367,8 @@ class RestAPI
         ), 200 );
     }
 
-    public function save_vendor( WP_REST_Request $request ) {
-
+    public function save_vendor(WP_REST_Request $request)
+    {
         $params = $request->get_params();
 
         global $wpdb;
@@ -387,8 +390,8 @@ class RestAPI
         return new WP_REST_Response( array(), 200 );
     }
 
-    public function delete_vendor( WP_REST_Request $request ) {
-
+    public function delete_vendor(WP_REST_Request $request)
+    {
         $params = $request->get_params();
 
         global $wpdb;
@@ -406,8 +409,8 @@ class RestAPI
         return new WP_Error( 404, 'Could not find this entry.' );
     }
 
-    public function get_languages() {
-
+    public function get_languages()
+    {
 //        $list = array_merge(['en'], get_available_languages());
 //
 //        foreach ($list as &$item) {
@@ -425,7 +428,8 @@ class RestAPI
         ), 200 );
     }
 
-    public function get_settings() {
+    public function get_settings()
+    {
         return new WP_REST_Response( array(
             'is_active' => get_option( XCM_NAME . "_is_active") === '1',
 //            'languages' => array(
@@ -435,14 +439,15 @@ class RestAPI
         ), 200 );
     }
 
-    public function save_settings(WP_REST_Request $request) {
+    public function save_settings(WP_REST_Request $request)
+    {
         $params = $request->get_params();
         update_option( XCM_NAME . "_is_active", $params['is_active'], false );
         return new WP_REST_Response( array(), 200 );
     }
 
-    public function get_customization(WP_REST_Request $request) {
-
+    public function get_customization(WP_REST_Request $request)
+    {
         $params = $request->get_params();
         $locale = $params['locale'];
 
@@ -452,7 +457,8 @@ class RestAPI
         ), 200 );
     }
 
-    public function save_customization(WP_REST_Request $request) {
+    public function save_customization(WP_REST_Request $request)
+    {
         $params = $request->get_params();
         $locale = $params['locale'];
         update_option( "xcm_{$locale}_overview_title", $params['overview_title'], false );
@@ -460,7 +466,8 @@ class RestAPI
         return new WP_REST_Response( array(), 200 );
     }
 
-    public function validate_name($param) {
+    public function validate_name($param)
+    {
         if (strlen( $param ) <= 2) {
             return new WP_Error( 'rest_invalid_param', 'Name is too short.', array( 'status' => 400 ) );
         }
@@ -468,7 +475,8 @@ class RestAPI
         return true;
     }
 
-    public function validate_numeric($param) {
+    public function validate_numeric($param)
+    {
         return is_numeric( $param );
     }
 }

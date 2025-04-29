@@ -6,10 +6,11 @@ use XenioCookies\Interfaces\StorageInterface;
 
 class EmbedReplacer
 {
-    public function __construct(
-        public StorageInterface $storage
-    )
+    public StorageInterface $storage;
+
+    public function __construct(StorageInterface $storage)
     {
+        $this->storage = $storage;
         add_action( 'render_block_core/embed', array( $this, 'embedBlockRender' ), 10, 2);
     }
 

@@ -3,7 +3,6 @@
 /** @var ArrayObject $args */
 
 ?>
-
 <div class="xcm-embed-replacer" data-provider="<?php echo $args['vendor']->provider; ?>" data-origin="<?php echo esc_html($args['blockContent']); ?>">
     <div class="xcm-embed-replacer__content">
         <div class="xcm-embed-replacer__warning">

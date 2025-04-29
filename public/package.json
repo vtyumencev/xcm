@@ -13,6 +13,7 @@
     "vite": "^5.2.8"
   },
   "dependencies": {
+    "@stiumentsev/modal": "^1.4.0",
     "nanoevents": "^9.0.0"
   }
 }

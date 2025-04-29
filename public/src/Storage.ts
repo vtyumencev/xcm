@@ -35,9 +35,11 @@ const storage = () => {
         on<E extends keyof Events>(event: E, callback: Events[E]) {
             return emitter.on(event, callback)
         },
+
         emit<K extends keyof Events>(event: K, ...args: Parameters<Events[K]>) {
             return emitter.emit(event, ...args);
         },
+
         getUserConfig() {
             let userConfig;
             try {
@@ -49,6 +51,11 @@ const storage = () => {
 
             return userConfig;
         },
+
+        prolongConfig() {
+            setCookie('xcm', encodeURIComponent(JSON.stringify(this.getUserConfig())), 365);
+        },
+
         getConsentConsentsTypes() {
             const userConfig = this.getUserConfig();
             const consentList: Record<string, string> = {};
@@ -72,6 +79,7 @@ const storage = () => {
 
             return consentList;
         },
+
         isProviderBlocked(providerName): ProviderForBlocking|boolean {
             const userConfig = this.getUserConfig();
 

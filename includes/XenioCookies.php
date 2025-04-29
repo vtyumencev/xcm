@@ -25,7 +25,6 @@ class XenioCookies
         if ($storage->isPluginActive() && !is_admin()) {
             new EmbedReplacer($storage);
         }
-
     }
 
     /**
@@ -34,6 +33,7 @@ class XenioCookies
     public function pluginActivation()
     {
         global $wpdb;
+        require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 
         $charset_collate = $wpdb->get_charset_collate();
 
@@ -41,31 +41,29 @@ class XenioCookies
 
         $sql = "CREATE TABLE IF NOT EXISTS $categories_table_name (
             id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-            name json NOT NULL,
-            necessary bool NOT NULL,
-            description json,
-            consent_types mediumtext,
+            name JSON NOT NULL,
+            necessary BOOL NOT NULL,
+            description JSON,
+            consent_types MEDIUMTEXT,
             PRIMARY KEY  (id)
         ) $charset_collate;";
 
-        require_once ABSPATH . 'wp-admin/includes/upgrade.php';
-        dbDelta( $sql );
+        dbDelta($sql);
 
         $vendors_table_name = $wpdb->prefix . XCM_NAME . '_vendors';
 
         $sql = "CREATE TABLE IF NOT EXISTS $vendors_table_name (
             id mediumint(9) NOT NULL AUTO_INCREMENT,
             category_id INT UNSIGNED NOT NULL,
-            name mediumtext NOT NULL,
-            link mediumtext,
-            description json,
-            provider mediumtext,
-            cookies json,
+            name MEDIUMTEXT NOT NULL,
+            link MEDIUMTEXT,
+            description JSON,
+            provider MEDIUMTEXT,
+            cookies JSON,
             PRIMARY KEY  (id),
             FOREIGN KEY  (category_id) REFERENCES `$categories_table_name`(id)
         ) $charset_collate;";
 
-        require_once ABSPATH . 'wp-admin/includes/upgrade.php';
         dbDelta( $sql );
 
         $entries = $wpdb->get_results("SELECT id FROM {$categories_table_name} LIMIT 1");
@@ -137,18 +135,18 @@ class XenioCookies
 
         $consent_logs_table_name = $wpdb->prefix . XCM_NAME . '_consent_logs';
 
-        $sql = "CREATE TABLE IF NOT EXISTS $consent_logs_table_name (
+        $sql = "CREATE TABLE $consent_logs_table_name (
             id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-            datetime datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-            consent json,
-            plugin_version varchar(255),
-            content_version varchar(255),
+            datetime DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            consent JSON,
+            plugin_version VARCHAR(255),
+            content_version INT UNSIGNED,
+            hash VARCHAR(255),
             previous_consent_id INT UNSIGNED,
             PRIMARY KEY  (id)
         ) $charset_collate;";
 
-        require_once ABSPATH . 'wp-admin/includes/upgrade.php';
-        dbDelta( $sql );
+        dbDelta($sql);
 
         update_option( XCM_NAME . '_db_version',  XCM_DB_VERSION, 'no');
 
