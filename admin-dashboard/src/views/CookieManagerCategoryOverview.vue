@@ -99,14 +99,16 @@ const deleteEntry = async () => {
                 <div ref="descEl" v-html="cookieCategory.description"></div>
             </div>
             <div>
-                <label>
-                    <input v-model="cookieCategory.necessary" type="checkbox" name="necessary">
-                    Always active without user consent
-                </label>
-            </div>
-            <div>
-                <div class="text-">Consent types</div>
-                <ConsentSelect v-model="cookieCategory.consent_types" />
+                <div class="">Consent type</div>
+                <select class="w-full" v-model="cookieCategory.consent_type" name="consent_type">
+                    <option>No consent type</option>
+                    <option value="necessary">Necessary</option>
+                    <option value="advertisement">Advertisement</option>
+                    <option value="functional">Functional</option>
+                    <option value="analytics">Analytics</option>
+                    <option value="performance">Performance</option>
+                    <option value="personalization">Personalization</option>
+                </select>
             </div>
             <div class="flex justify-between">
                 <div class="">

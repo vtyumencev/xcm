@@ -6,7 +6,7 @@ use XenioCookies\Interfaces\StorageInterface;
 
 class Storage implements StorageInterface
 {
-    private $categories;
+    private static $categories;
 
     private $isPluginActive;
 
@@ -22,10 +22,10 @@ class Storage implements StorageInterface
 
     public function getCategories()
     {
-        if (empty($this->categories)) {
+        if (empty(self::$categories)) {
             $this->fetchCategories();
         }
-        return $this->categories;
+        return self::$categories;
     }
 
     private function fetchCategories()
@@ -39,10 +39,9 @@ class Storage implements StorageInterface
         $categories = $wpdb->get_results("
         SELECT 
             id,
-            necessary,
             JSON_UNQUOTE(JSON_EXTRACT(name, '$.{$locale}')) as name,
             JSON_UNQUOTE(JSON_EXTRACT(description, '$.{$locale}')) as description,
-            consent_types
+            consent_type
         FROM {$table_name_categories}");
 
         $vendors = $wpdb->get_results("
@@ -62,6 +61,33 @@ class Storage implements StorageInterface
             }
         }
 
-        $this->categories = $categories;
+        $consented = [];
+
+        $consentRaw = $_COOKIE[XCM_NAME] ?? null;
+        if ($consentRaw) {
+            $consentArray = json_decode($consentRaw, true);
+            if ($consentArray) {
+                $consented = $consentArray['consent'] ?? [];
+            }
+        }
+
+        $consentTypeMap = [
+            'advertisement'   => 'ad_storage,ad_personalization,ad_user_data',
+            'analytics'       => 'analytics_storage',
+            'functional'      => 'functionality_storage',
+            'personalization' => 'personalization_storage',
+        ];
+
+        foreach ($categories as $category) {
+            $category->consent_types = $consentTypeMap[$category->consent_type] ?? '';
+
+            if (isset($consented[$category->id]) && $consented[$category->id] === true) {
+                $category->consented = true;
+            } else {
+                $category->consented = false;
+            }
+        }
+
+        self::$categories = $categories;
     }
 }

@@ -77,8 +77,10 @@ const submit = async (e) => {
         body: new FormData(e.target)
     }).then(response =>  response.json());
 
-    if (oldUserConfig && hasDisabledOptions(oldUserConfig)) {
-        // Reload to clean tag injections and prevent several tag injections
+    if (
+        window.XCMSettingsPublic.reloadOnUpdate === true ||
+        oldUserConfig && hasDisabledOptions(oldUserConfig) // Reload to clean tag injections and prevent several tag injections
+    ) {
         window.location.reload();
     }
 
@@ -158,7 +160,6 @@ const Manager = () => {
     return {
 
         show(closable = true, categoryId: number = null) {
-
             let fetchRequest = new Promise( (resolve) => resolve(true) );
 
             if (! modalEl) {
@@ -184,9 +185,7 @@ const Manager = () => {
             });
         },
 
-
         start(storage: Storage) {
-
             appStorage = storage;
 
             window.addEventListener("popstate", () => {
@@ -207,6 +206,19 @@ const Manager = () => {
                 once: true
             });
         },
+
+        async acceptConsentType(consentType: string) {
+            await fetch(window.XCMSettingsPublic.ajaxUrl + '?action=xcm_accept_consent_type', {
+                method: 'POST',
+                body: new URLSearchParams({ consent_type: consentType })
+            }).then(response => response.json());
+
+            if (
+                window.XCMSettingsPublic.reloadOnUpdate === true
+            ) {
+                window.location.reload();
+            }
+        }
     }
 };
 

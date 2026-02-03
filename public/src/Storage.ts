@@ -28,7 +28,6 @@ const getCookie = (cname: string) => {
 }
 
 const storage = () => {
-
     const settings = window.XCMSettingsPublic;
 
     return {

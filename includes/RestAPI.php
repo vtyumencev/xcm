@@ -207,10 +207,9 @@ class RestAPI
         $entry = $wpdb->get_results("
             SELECT 
                 id,
-                necessary,
                 JSON_UNQUOTE(JSON_EXTRACT(name, '$.{$locale}')) as name,
                 JSON_UNQUOTE(JSON_EXTRACT(description, '$.{$locale}')) as description,
-                consent_types
+                consent_type
             FROM {$table_name}
             WHERE id = {$params['id']}");
 
@@ -230,16 +229,12 @@ class RestAPI
         global $wpdb;
 
         $table_name = $wpdb->prefix . XCM_NAME . '_categories';
-
-        $necessary = $params['necessary'] === 'on' ? 1 : 0;
-
         $wpdb->query($wpdb->prepare("
             UPDATE {$table_name}
             SET
-                necessary = {$necessary},
                 name = JSON_SET(name, '$.{$locale}', '{$params['name']}'),
                 description = JSON_SET(description, '$.{$locale}', '{$params['description']}'),
-                consent_types = \"{$params['consent_types']}\"
+                consent_type = \"{$params['consent_type']}\"
             WHERE id = {$params['id']}"));
 
 
@@ -432,6 +427,7 @@ class RestAPI
     {
         return new WP_REST_Response( array(
             'is_active' => get_option( XCM_NAME . "_is_active") === '1',
+            'reload_on_update' => get_option( XCM_NAME . "_reload_on_update") === '1',
 //            'languages' => array(
 //                'default' => $this->defaultLanguage,
 //                'list' => get_available_languages(),
@@ -443,6 +439,7 @@ class RestAPI
     {
         $params = $request->get_params();
         update_option( XCM_NAME . "_is_active", $params['is_active'], false );
+        update_option( XCM_NAME . "_reload_on_update", $params['reload_on_update'], false );
         return new WP_REST_Response( array(), 200 );
     }
 

@@ -12,7 +12,7 @@ if (isset($_COOKIE[XCM_NAME])) {
 
 <section class="xcm-manager">
     <div class="xcm-manager__desc">
-        <h1 class="xcm-manager__headline"><?php echo $args['title']; ?></h1>
+        <h2 class="xcm-manager__headline"><?php echo $args['title']; ?></h2>
         <?php echo $args['description']; ?>
     </div>
     <form action="" class="js-xcm-manager-form">
@@ -30,7 +30,7 @@ if (isset($_COOKIE[XCM_NAME])) {
                         </div>
                         <div class="xcm-manager-category-header__control">
                             <button class="xcm-manager-category-header__toggle js-xcm-manager-category-toggle" type="button"></button>
-                            <?php if ($category->necessary): ?>
+                            <?php if ($category->consent_type === 'necessary'): ?>
                                 <div class=""><?php echo __("Always active", 'xcm'); ?></div>
                             <?php else: ?>
                                 <label class="xcm-manager-category-switch">

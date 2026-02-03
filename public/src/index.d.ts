@@ -13,7 +13,8 @@ declare global {
                     provider: string;
                     id: number,
                 }[]
-            }[]
+            }[],
+            reloadOnUpdate: boolean,
         };
     }
 

@@ -11,3 +11,5 @@ Modal.start();
 GTM.start(Storage);
 Manager.start(Storage);
 EmbedBlocker.start(Storage);
+
+window.XCM = Manager;

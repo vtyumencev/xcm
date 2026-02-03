@@ -8,6 +8,7 @@ import ProcessingButton from "@/components/ProcessingButton.vue";
 
 interface Settings {
     is_active: boolean,
+    reload_on_update: boolean,
     languages: {
         default: string,
         list: string[]
@@ -55,6 +56,12 @@ const save = () => {
             <label>
                 <input type="checkbox" v-model="settings.is_active" />
                 Consent Manager is active
+            </label>
+        </div>
+        <div>
+            <label>
+                <input type="checkbox" v-model="settings.reload_on_update" />
+                Reload on consent update
             </label>
         </div>
         <div class="mt-5">

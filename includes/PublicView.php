@@ -27,6 +27,9 @@ class PublicView
 
         add_action("wp_ajax_xcm_update", [$this, 'update']);
         add_action("wp_ajax_nopriv_xcm_update", [$this, 'update']);
+
+        add_action("wp_ajax_xcm_accept_consent_type", [$this, 'acceptConsentType']);
+        add_action("wp_ajax_nopriv_xcm_accept_consent_type", [$this, 'acceptConsentType']);
     }
 
     /**
@@ -104,8 +107,7 @@ class PublicView
 
         $categories = $wpdb->get_results("
         SELECT id
-        FROM {$table_name_categories}
-        WHERE necessary = false");
+        FROM {$table_name_categories}");
 
         $consentList = [];
 
@@ -113,7 +115,37 @@ class PublicView
             $consentList[$category->id] = isset($_POST['category'][$category->id]) && $_POST['category'][$category->id] === 'on';
         }
 
+        $settingsJson = $this->updateConsent($consentList);
 
+        echo $settingsJson;
+
+        wp_die();
+    }
+
+    public function acceptConsentType()
+    {
+        if (!isset($_POST['consent_type'])) {
+            return;
+        }
+
+        $consentList = [];
+
+        $consentType = esc_html($_POST['consent_type']);
+
+        foreach($this->storage->getCategories() as $category) {
+            $consentList[$category->id] = $category->consent_type === $consentType || $category->consented;
+        }
+
+        $settingsJson = $this->updateConsent($consentList);
+
+        echo $settingsJson;
+
+        wp_die();
+    }
+
+    private function updateConsent($consentList)
+    {
+        global $wpdb;
         $table_name = $wpdb->prefix . XCM_NAME . '_consent_logs';
 
         $previousConsentId = null;
@@ -164,9 +196,7 @@ class PublicView
         // Set the cookie for one year
         setcookie(XCM_NAME, $settingsJson, time() + 31536000, '/');
 
-        echo $settingsJson;
-
-        wp_die();
+        return $settingsJson;
     }
 
     /**
@@ -194,10 +224,16 @@ class PublicView
             XCM_VERSION
         );
 
-        wp_localize_script(XCM_NAME, 'XCMSettingsPublic', [
+        $data = [
             'restUrl' => esc_url_raw(rest_url()),
             'ajaxUrl' => admin_url('admin-ajax.php'),
             'categories' => $this->storage->getCategories(),
-        ]);
+            'reloadOnUpdate' => (bool)get_option(XCM_NAME . '_reload_on_update', false),
+        ];
+
+        wp_add_inline_script(XCM_NAME,
+            'window.XCMSettingsPublic = ' . wp_json_encode($data) . ';',
+            'before'
+        );
     }
 }

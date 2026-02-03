@@ -4,7 +4,33 @@ namespace XenioCookies;
 
 class XenioCookies
 {
-    public function __construct()
+    /**
+     * @var bool
+     */
+    private $consentedFunctional = false;
+
+    /**
+     * @var bool
+     */
+    private $consentedAnalytics = false;
+
+    /**
+     * @var bool
+     */
+    private $consentedAd = false;
+    /**
+     * The Singleton's instance is stored in a static field. This field is an
+     * array, because we'll allow our Singleton to have subclasses. Each item in
+     * this array will be an instance of a specific Singleton's subclass. You'll
+     * see how this works in a moment.
+     */
+    private static $instances = [];
+
+    /**
+     * The Singleton's constructor should always be private to prevent direct
+     * construction calls with the `new` operator.
+     */
+    protected function __construct()
     {
         register_activation_hook( XCM_FILE, array($this, 'pluginActivation'));
 
@@ -25,6 +51,61 @@ class XenioCookies
         if ($storage->isPluginActive() && !is_admin()) {
             new EmbedReplacer($storage);
         }
+
+        $functionalStorage = array_filter(
+            $storage->getCategories(),
+            fn($category) =>
+                $category->consent_type === 'functional' &&
+                $category->consented === true
+        );
+
+        $this->consentedFunctional = !empty($functionalStorage);
+
+        $adStorage = array_filter(
+            $storage->getCategories(),
+            fn($category) =>
+                $category->consent_type === 'advertisement' &&
+                $category->consented === true
+        );
+
+        $this->consentedAd = !empty($adStorage);
+    }
+
+    /**
+     * Singletons should not be cloneable.
+     */
+    protected function __clone()
+    {
+    }
+
+    /**
+     * Singletons should not be restorable from strings.
+     * @throws \Exception
+     */
+    public function __wakeup()
+    {
+        throw new \Exception("Cannot unserialize a singleton.");
+    }
+
+    /**
+     * This is the static method that controls the access to the singleton
+     * instance. On the first run, it creates a singleton object and places it
+     * into the static field. On subsequent runs, it returns the client existing
+     * object stored in the static field.
+     *
+     * This implementation lets you subclass the Singleton class while keeping
+     * just one instance of each subclass around.
+     *
+     * @return XenioCookies
+     */
+    public static function getInstance()
+    {
+        $cls = static::class;
+        if (!isset(self::$instances[$cls])) {
+            self::$instances[$cls] = new static();
+        }
+
+        return self::$instances[$cls];
     }
 
     /**
@@ -39,12 +120,11 @@ class XenioCookies
 
         $categories_table_name = $wpdb->prefix . XCM_NAME . '_categories';
 
-        $sql = "CREATE TABLE IF NOT EXISTS $categories_table_name (
+        $sql = "CREATE TABLE $categories_table_name (
             id INT UNSIGNED NOT NULL AUTO_INCREMENT,
             name JSON NOT NULL,
-            necessary BOOL NOT NULL,
             description JSON,
-            consent_types MEDIUMTEXT,
+            consent_type MEDIUMTEXT,
             PRIMARY KEY  (id)
         ) $charset_collate;";
 
@@ -76,32 +156,27 @@ class XenioCookies
             [
                 'name' => 'Notwendige',
                 'description' => '<p>Notwendige Cookies sind für die Grundfunktionen der Website von entscheidender Bedeutung. Ohne sie kann die Website nicht in der vorgesehenen Weise funktionieren. Diese Cookies speichern keine personenbezogenen Daten.</p>',
-                'necessary' => true,
+                'consent_type' => 'necessary',
             ],
             [
                 'name' => 'Funktionale',
                 'description' => '<p>Funktionale Cookies unterstützen bei der Ausführung bestimmter Funktionen, z. B. beim Teilen des Inhalts der Website auf Social Media-Plattformen, beim Sammeln von Feedbacks und anderen Funktionen von Drittanbietern.</p>',
-                'necessary' => false,
+                'consent_type' => 'functional',
             ],
             [
                 'name' => 'Analyse',
                 'description' => '<p>Analyse-Cookies werden verwendet um zu verstehen, wie Besucher mit der Website interagieren. Diese Cookies dienen zu Aussagen über die Anzahl der Besucher, Absprungrate, Herkunft der Besucher usw.</p>',
-                'necessary' => false,
-            ],
-            [
-                'name' => 'Leistungs',
-                'description' => '<p>Leistungs-Cookies werden verwendet, um die wichtigsten Leistungsindizes der Website zu verstehen und zu analysieren. Dies trägt dazu bei, den Besuchern ein besseres Nutzererlebnis zu bieten.</p>',
-                'necessary' => false,
+                'consent_type' => 'analytics',
             ],
             [
                 'name' => 'Werbe',
                 'description' => '<p>Werbe-Cookies werden verwendet, um Besuchern auf der Grundlage der von ihnen zuvor besuchten Seiten maßgeschneiderte Werbung zu liefern und die Wirksamkeit von Werbekampagne nzu analysieren.</p>',
-                'necessary' => false,
+                'consent_type' => 'advertisement',
             ],
             [
                 'name' => 'Nicht kategorisiert',
                 'description' => '<p>Andere nicht kategorisierte Cookies sind solche, die analysiert werden und noch nicht in eine Kategorie eingestuft wurden.</p>',
-                'necessary' => false,
+                'consent_type' => '',
             ],
         ];
 
@@ -127,7 +202,7 @@ class XenioCookies
                     array(
                         'name' => json_encode($nameArray),
                         'description' => json_encode($descriptionArray),
-                        'necessary' => $preset['necessary'],
+                        'consent_type' => $preset['consent_type'],
                     )
                 );
             }
@@ -165,5 +240,29 @@ class XenioCookies
         }
 
         update_option( XCM_NAME . '_is_active',  true, false);
+    }
+
+    /**
+     * @return bool
+     */
+    public function consentedFunctional()
+    {
+        return $this->consentedFunctional;
+    }
+
+    /**
+     * @return bool
+     */
+    public function consentedAnalytics()
+    {
+        return $this->consentedAnalytics;
+    }
+
+    /**
+     * @return bool
+     */
+    public function consentedAd()
+    {
+        return $this->consentedAd;
     }
 }
