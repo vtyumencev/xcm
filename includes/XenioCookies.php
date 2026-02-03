@@ -69,6 +69,15 @@ class XenioCookies
         );
 
         $this->consentedAd = !empty($adStorage);
+
+        $analyticsStorage = array_filter(
+            $storage->getCategories(),
+            fn($category) =>
+                $category->consent_type === 'analytics' &&
+                $category->consented === true
+        );
+
+        $this->consentedAnalytics = !empty($analyticsStorage);
     }
 
     /**
