@@ -1,5 +1,4 @@
 .xcm-manager {
-    font-size: 16px;
     &__desc {
         margin: 1rem 1rem 2rem 1rem;
         & > * {
@@ -60,11 +59,10 @@
     }
 
     &__headline {
-        font-size: 1.3rem;
         line-height: normal;
     }
     &__metas {
-        font-size: 0.9rem;
+        font-size: 0.8em;
         line-height: normal;
     }
     &__control {
@@ -74,7 +72,7 @@
     &__arrow {
         position: relative;
         width: auto;
-        height: 1em;
+        height: 1rem;
         display: flex;
         margin-left: 1rem;
         pointer-events: none;
@@ -104,7 +102,7 @@
         background: rgba(var(--xcm-color-psi-rgb), 0.1);
         border-radius: 200rem;
         width: 2.8em;
-        height: 1.6em;
+        height: 1.4em;
         position: relative;
         padding: 0;
         border: none;
@@ -123,7 +121,7 @@
         position: absolute;
         width: 1.2em;
         height: 1.2em;
-        left: 0.2em;
+        left: 0.1em;
         background: rgba(var(--xcm-color-psi-rgb), 0.6);
         border-radius: 200rem;
         transition: 0.3s;
@@ -135,7 +133,7 @@
         background: var(--xcm-color-alpha);
     }
     input:checked + &__wrapper &__dot {
-        transform: translateX(1.2em);
+        transform: translateX(1.4em);
         background: var(--xcm-color-omega);
     }
 }
