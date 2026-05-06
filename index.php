@@ -4,7 +4,7 @@
  * Plugin Name: Xenio Consent Manager
  * Plugin URI: https://github.com/vtyumencev/xcm
  * Description: Cookies and consent manager for WordPress websites.
- * Version: 0.1.0-alpha
+ * Version: 0.1.0-beta
  * Text Domain: xcm
  * Domain Path: /languages
  */

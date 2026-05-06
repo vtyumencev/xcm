@@ -46,38 +46,38 @@ class XenioCookies
 
         if ($storage->isPluginActive()) {
             new PublicView($storage);
+
+            $functionalStorage = array_filter(
+                $storage->getCategories(),
+                fn($category) =>
+                    $category->consent_type === 'functional' &&
+                    $category->consented === true
+            );
+
+            $this->consentedFunctional = !empty($functionalStorage);
+
+            $adStorage = array_filter(
+                $storage->getCategories(),
+                fn($category) =>
+                    $category->consent_type === 'advertisement' &&
+                    $category->consented === true
+            );
+
+            $this->consentedAd = !empty($adStorage);
+
+            $analyticsStorage = array_filter(
+                $storage->getCategories(),
+                fn($category) =>
+                    $category->consent_type === 'analytics' &&
+                    $category->consented === true
+            );
+
+            $this->consentedAnalytics = !empty($analyticsStorage);
         }
 
         if ($storage->isPluginActive() && !is_admin()) {
             new EmbedReplacer($storage);
         }
-
-        $functionalStorage = array_filter(
-            $storage->getCategories(),
-            fn($category) =>
-                $category->consent_type === 'functional' &&
-                $category->consented === true
-        );
-
-        $this->consentedFunctional = !empty($functionalStorage);
-
-        $adStorage = array_filter(
-            $storage->getCategories(),
-            fn($category) =>
-                $category->consent_type === 'advertisement' &&
-                $category->consented === true
-        );
-
-        $this->consentedAd = !empty($adStorage);
-
-        $analyticsStorage = array_filter(
-            $storage->getCategories(),
-            fn($category) =>
-                $category->consent_type === 'analytics' &&
-                $category->consented === true
-        );
-
-        $this->consentedAnalytics = !empty($analyticsStorage);
     }
 
     /**
