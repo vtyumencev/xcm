@@ -29,11 +29,13 @@ if (isset($_COOKIE[XCM_NAME])) {
                             </div>
                         </div>
                         <div class="xcm-manager-category-header__control">
-                            <button class="xcm-manager-category-header__toggle js-xcm-manager-category-toggle" type="button"></button>
+                            <button
+                                class="xcm-manager-category-header__toggle js-xcm-manager-category-toggle"
+                                type="button" aria-label="<?php echo sprintf(__("Show / hide read more about %s", 'xcm'), $category->name); ?>"></button>
                             <?php if ($category->consent_type === 'necessary'): ?>
                                 <div class=""><?php echo __("Always active", 'xcm'); ?></div>
                             <?php else: ?>
-                                <label class="xcm-manager-category-switch">
+                                <label class="xcm-manager-category-switch" aria-label="<?php echo sprintf(__("Allow / disallow %s", 'xcm'), $category->name); ?>">
                                     <input
                                             type="checkbox"
                                             name="category[<?php echo $category->id; ?>]"
@@ -48,7 +50,7 @@ if (isset($_COOKIE[XCM_NAME])) {
                                 <g stroke="none" stroke-width="1" fill-rule="evenodd">
                                     <g transform="translate(-260.000000, -6684.000000)">
                                         <g transform="translate(56.000000, 160.000000)">
-                                            <path d="M223.707692,6534.63378 L223.707692,6534.63378 C224.097436,6534.22888 224.097436,6533.57338 223.707692,6533.16951 L215.444127,6524.60657 C214.66364,6523.79781 213.397472,6523.79781 212.616986,6524.60657 L204.29246,6533.23165 C203.906714,6533.6324 203.901717,6534.27962 204.282467,6534.68555 C204.671211,6535.10081 205.31179,6535.10495 205.70653,6534.69695 L213.323521,6526.80297 C213.714264,6526.39807 214.346848,6526.39807 214.737591,6526.80297 L222.294621,6534.63378 C222.684365,6535.03868 223.317949,6535.03868 223.707692,6534.63378" id="arrow_up-[#337]"></path>
+                                            <path d="M223.707692,6534.63378 L223.707692,6534.63378 C224.097436,6534.22888 224.097436,6533.57338 223.707692,6533.16951 L215.444127,6524.60657 C214.66364,6523.79781 213.397472,6523.79781 212.616986,6524.60657 L204.29246,6533.23165 C203.906714,6533.6324 203.901717,6534.27962 204.282467,6534.68555 C204.671211,6535.10081 205.31179,6535.10495 205.70653,6534.69695 L213.323521,6526.80297 C213.714264,6526.39807 214.346848,6526.39807 214.737591,6526.80297 L222.294621,6534.63378 C222.684365,6535.03868 223.317949,6535.03868 223.707692,6534.63378"></path>
                                         </g>
                                     </g>
                                 </g>

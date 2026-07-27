@@ -1,24 +1,13 @@
 import { defineConfig } from 'vite';
+import { dirname, resolve } from 'node:path'
 
-// https://vitejs.dev/config/
+
 export default defineConfig({
-  build: {
-    // rollupOptions: {
-    //   input: './src/main.js',
-    //   output: {
-    //     entryFileNames: `[name].js`,
-    //     chunkFileNames: `[name].js`,
-    //     assetFileNames: `[name].[ext]`
-    //   }
-    // },
-    lib: {
-      entry: './src/main.ts',
-      fileName: () => 'scripts.js',
-      name: 'xenioPrivacy',
-      formats: ['iife'],
-    },
-  },
-  plugins: [
-
-  ]
-})
+    build: {
+        lib: {
+            entry: resolve(import.meta.dirname, 'src/main.js'),
+            name: 'public',
+            fileName: 'public',
+        },
+    }
+});

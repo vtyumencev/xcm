@@ -72,7 +72,7 @@ class PublicView
         $table_name_vendors = $wpdb->prefix . XCM_NAME . '_vendors';
 
         $vendors = $wpdb->get_results("
-            SELECT 
+            SELECT
                 id,
                 name,
                 category_id,
@@ -206,7 +206,7 @@ class PublicView
     {
         wp_enqueue_style(
             XCM_NAME,
-            XCM_DIR_URL . 'public/dist/style.css',
+            XCM_DIR_URL . 'public/dist/public.css',
             [],
             XCM_VERSION
         );
@@ -219,7 +219,7 @@ class PublicView
     {
         wp_enqueue_script(
             XCM_NAME,
-            XCM_DIR_URL . 'public/dist/scripts.js',
+            XCM_DIR_URL . 'public/dist/public.umd.js',
             [],
             XCM_VERSION
         );
