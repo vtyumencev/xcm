@@ -176,7 +176,7 @@ class PublicView
             $table_name,
             [
                 'plugin_version' => XCM_VERSION,
-                'content_version' => 1,
+                'content_version' => get_option(XCM_NAME . '_content_version'),
                 'consent' => json_encode($consentList),
                 'hash' => $newHash,
                 'previous_consent_id' => $previousConsentId,
@@ -185,7 +185,7 @@ class PublicView
 
         $settings = [
             'plugin_version' => XCM_VERSION,
-            'content_version' => 1,
+            'content_version' => get_option(XCM_NAME . '_content_version'),
             'consent' => $consentList,
             'consent_id' => $wpdb->insert_id,
             'hash' => $newHash,
@@ -228,6 +228,7 @@ class PublicView
         );
 
         $data = [
+            'contentVersion' => get_option(XCM_NAME . '_content_version'),
             'restUrl' => esc_url_raw(rest_url()),
             'ajaxUrl' => admin_url('admin-ajax.php'),
             'categories' => $this->storage->getCategories(),

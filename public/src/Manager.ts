@@ -192,7 +192,9 @@ const Manager = () => {
             });
 
             window.addEventListener('DOMContentLoaded', () => {
-                if (!appStorage.getUserConfig()) {
+                if (
+                    !appStorage.getUserConfig() ||
+                    (appStorage.getUserConfig() && appStorage.getUserConfig().content_version !== window.XCMSettingsPublic.contentVersion)) {
                     this.show(false);
                 } else {
                     appStorage.prolongConfig()

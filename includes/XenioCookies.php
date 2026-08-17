@@ -215,13 +215,17 @@ class XenioCookies
             update_option( XCM_NAME . "_is_active",  true, 'no');
         }
 
+        if (! get_option( XCM_NAME . "_content_version")) {
+            update_option( XCM_NAME . "_content_version",  '1', 'no');
+        }
+
         foreach ($languages as $locale) {
-            if (! get_option( XCM_NAME . "_{$locale}_overview_title")) {
-                update_option( XCM_NAME . "_{$locale}_overview_title", $title, false );
+            if (! get_option(XCM_NAME . "_{$locale}_overview_title")) {
+                update_option(XCM_NAME . "_{$locale}_overview_title", $title, false);
             }
 
-            if (! get_option( XCM_NAME . "_{$locale}_overview_description")) {
-                update_option( XCM_NAME . "_{$locale}_overview_description", $description, false );
+            if (! get_option(XCM_NAME . "_{$locale}_overview_description")) {
+                update_option(XCM_NAME . "_{$locale}_overview_description", $description, false);
             }
         }
 

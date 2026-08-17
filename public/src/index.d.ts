@@ -3,6 +3,7 @@ export {};
 declare global {
     interface Window {
         XCMSettingsPublic: {
+            contentVersion: string,
             ajaxUrl: string,
             categories: {
                 id: number,

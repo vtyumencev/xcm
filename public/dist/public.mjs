@@ -235,7 +235,7 @@ var e = () => ({
 					this.show(!0, t);
 				}
 			}), window.addEventListener("DOMContentLoaded", () => {
-				f.getUserConfig() ? f.prolongConfig() : this.show(!1);
+				!f.getUserConfig() || f.getUserConfig() && f.getUserConfig().content_version !== window.XCMSettingsPublic.contentVersion ? this.show(!1) : f.prolongConfig();
 			}, { once: !0 });
 		},
 		async acceptConsentType(e) {
