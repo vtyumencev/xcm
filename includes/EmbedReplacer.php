@@ -11,7 +11,7 @@ class EmbedReplacer
     public function __construct(StorageInterface $storage)
     {
         $this->storage = $storage;
-        add_action( 'render_block_core/embed', array( $this, 'embedBlockRender' ), 10, 2);
+        add_action('render_block_core/embed', array($this, 'embedBlockRender'), 10, 2);
     }
 
     public function embedBlockRender($block_content, $block)

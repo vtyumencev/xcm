@@ -28,6 +28,25 @@ class Storage implements StorageInterface
         return self::$categories;
     }
 
+    public function isTypeConsented($name)
+    {
+        $consented = [];
+        $consentRaw = $_COOKIE[XCM_NAME] ?? null;
+
+        if ($consentRaw) {
+            $consentArray = json_decode($consentRaw, true);
+            if ($consentArray) {
+                $consented = $consentArray['consent'] ?? [];
+            }
+        }
+
+        $filteredItems = array_filter($this->getCategories(), function ($item) use ($name, $consented) {
+            return $item->consent_type === $name && ($consented[$item->id] ?? false);
+        });
+
+        return !empty($filteredItems);
+    }
+
     private function fetchCategories()
     {
         $locale = get_locale();
@@ -61,16 +80,6 @@ class Storage implements StorageInterface
             }
         }
 
-        $consented = [];
-
-        $consentRaw = $_COOKIE[XCM_NAME] ?? null;
-        if ($consentRaw) {
-            $consentArray = json_decode($consentRaw, true);
-            if ($consentArray) {
-                $consented = $consentArray['consent'] ?? [];
-            }
-        }
-
         $consentTypeMap = [
             'advertisement'   => 'ad_storage,ad_personalization,ad_user_data',
             'analytics'       => 'analytics_storage',
@@ -80,12 +89,6 @@ class Storage implements StorageInterface
 
         foreach ($categories as $category) {
             $category->consent_types = $consentTypeMap[$category->consent_type] ?? '';
-
-            if (isset($consented[$category->id]) && $consented[$category->id] === true) {
-                $category->consented = true;
-            } else {
-                $category->consented = false;
-            }
         }
 
         self::$categories = $categories;

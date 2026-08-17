@@ -297,7 +297,7 @@ var e = () => ({
 			return e;
 		},
 		prolongConfig() {
-			C("xcm", encodeURIComponent(JSON.stringify(this.getUserConfig())), 365);
+			C("xcm", w("xcm"), 365), C("xcm_consent", w("xcm_consent"), 365);
 		},
 		getConsentConsentsTypes() {
 			let t = this.getUserConfig(), n = {};
@@ -312,7 +312,7 @@ var e = () => ({
 		isProviderBlocked(t) {
 			let n = this.getUserConfig();
 			for (let r of e.categories) if (!n?.consent[r.id]) {
-				for (let e of r.vendors) if (r.necessary === "0" && e.provider && t.includes(e.provider)) return {
+				for (let e of r.vendors) if (r.consent_type !== "necessary" && e.provider && t.includes(e.provider)) return {
 					provider: e.provider,
 					category_id: r.id,
 					category_name: r.name

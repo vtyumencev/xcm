@@ -16,8 +16,8 @@ class PublicView
     {
         $this->storage = $storage;
 
-        add_action( 'wp_enqueue_scripts', [$this, 'enqueueStyle']);
-        add_action( 'wp_enqueue_scripts', [$this, 'enqueueScript']);
+        add_action('wp_enqueue_scripts', [$this, 'enqueueStyle']);
+        add_action('wp_enqueue_scripts', [$this, 'enqueueScript']);
 
         add_action("wp_ajax_xcm_overview", [$this, 'categories']);
         add_action("wp_ajax_nopriv_xcm_overview", [$this, 'categories']);
@@ -133,7 +133,7 @@ class PublicView
         $consentType = esc_html($_POST['consent_type']);
 
         foreach($this->storage->getCategories() as $category) {
-            $consentList[$category->id] = $category->consent_type === $consentType || $category->consented;
+            $consentList[$category->id] = $category->consent_type === $consentType || $this->storage->isTypeConsented($category->consent_type);
         }
 
         $settingsJson = $this->updateConsent($consentList);
@@ -193,8 +193,11 @@ class PublicView
 
         $settingsJson = json_encode($settings);
 
-        // Set the cookie for one year
+        // Set the gerneral cookie for one year
         setcookie(XCM_NAME, $settingsJson, time() + 31536000, '/');
+
+        // Set the cookie for one year (for caching plugins)
+        setcookie(XCM_NAME . '_consent', json_encode($consentList), time() + 31536000, '/');
 
         return $settingsJson;
     }

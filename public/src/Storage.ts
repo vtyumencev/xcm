@@ -52,7 +52,8 @@ const storage = () => {
         },
 
         prolongConfig() {
-            setCookie('xcm', encodeURIComponent(JSON.stringify(this.getUserConfig())), 365);
+            setCookie('xcm', getCookie('xcm'), 365);
+            setCookie('xcm_consent', getCookie('xcm_consent'), 365);
         },
 
         getConsentConsentsTypes() {
@@ -89,7 +90,7 @@ const storage = () => {
                 }
 
                 for (const vendor of category.vendors) {
-                    if (category.necessary === '0' && (vendor.provider && providerName.includes(vendor.provider))) {
+                    if (category.consent_type !== 'necessary' && (vendor.provider && providerName.includes(vendor.provider))) {
                         return {
                             provider: vendor.provider,
                             category_id: category.id,

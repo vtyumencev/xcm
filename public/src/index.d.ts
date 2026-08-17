@@ -7,6 +7,7 @@ declare global {
             categories: {
                 id: number,
                 name: string,
+                consent_type: string,
                 consent_types: string,
                 necessary: boolean|string,
                 vendors: {

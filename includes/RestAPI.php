@@ -226,6 +226,8 @@ class RestAPI
 
         $locale = $params['locale'];
 
+        $consentType = isset($params['consent_type']) && $params['consent_type'] ? '"' . $params['consent_type'] . '"' : 'null';
+
         global $wpdb;
 
         $table_name = $wpdb->prefix . XCM_NAME . '_categories';
@@ -234,7 +236,7 @@ class RestAPI
             SET
                 name = JSON_SET(name, '$.{$locale}', '{$params['name']}'),
                 description = JSON_SET(description, '$.{$locale}', '{$params['description']}'),
-                consent_type = \"{$params['consent_type']}\"
+                consent_type = {$consentType}
             WHERE id = {$params['id']}"));
 
 
@@ -282,10 +284,17 @@ class RestAPI
             $nameArray[$locale] = $params['name'];
         }
 
+        $descArray = [];
+
+        foreach ($languages as $locale) {
+            $descArray[$locale] = '';
+        }
+
         $wpdb->insert(
             $table_name,
             array(
                 'name' => json_encode($nameArray),
+                'description' => json_encode($descArray)
             )
         );
 

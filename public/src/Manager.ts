@@ -31,16 +31,13 @@ const onClickCategory = (e) => {
 }
 
 const onClickVendor = (e) => {
-
     const vendorId = e.target.getAttribute('data-vendor-id');
 
     const modalEl = modalTemplate('xcm-modal-vendor');
     document.body.appendChild(modalEl);
 
-
     Modal.init(modalEl, {
         onOpening: async() => {
-
             await fetch(window.XCMSettingsPublic.ajaxUrl + '?action=xcm_vendor&vendorId=' + vendorId, {
             }).then(response => {
                 return response.text()
@@ -54,7 +51,6 @@ const onClickVendor = (e) => {
             }, 500)
         }
     });
-
 }
 
 const submit = async (e) => {
@@ -158,7 +154,6 @@ const Manager = () => {
     }
 
     return {
-
         show(closable = true, categoryId: number = null) {
             let fetchRequest = new Promise( (resolve) => resolve(true) );
 

@@ -101,7 +101,7 @@ const deleteEntry = async () => {
             <div>
                 <div class="">Consent type</div>
                 <select class="w-full" v-model="cookieCategory.consent_type" name="consent_type">
-                    <option>No consent type</option>
+                    <option value="">No consent type</option>
                     <option value="necessary">Necessary</option>
                     <option value="advertisement">Advertisement</option>
                     <option value="functional">Functional</option>
